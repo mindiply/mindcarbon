@@ -1,0 +1,20 @@
+computation scalar_co2_value (
+        co2: CO2Eq
+) {
+    co2
+}
+
+computation air_transport(
+    weight: mass (kg),
+    airplane: string,
+    distance: length (km)
+) {
+    TonMiles = distance * weight / 1000;
+    TonMiles * ConversionFactor(type: 'transport.airTravel', value: airplane)
+}
+
+test = air_transport(
+    airplane: 'Boeing 747',
+    weight: 1000,
+    distance: 1000 (miles)
+) * scalar(24);

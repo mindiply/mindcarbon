@@ -1,0 +1,199 @@
+// Code generated from mindcarbon.g4 by ANTLR 4.13.2. DO NOT EDIT.
+
+package parser
+
+import (
+	"fmt"
+	"github.com/antlr4-go/antlr/v4"
+	"sync"
+	"unicode"
+)
+
+// Suppress unused import error
+var _ = fmt.Printf
+var _ = sync.Once{}
+var _ = unicode.IsLetter
+
+type mindcarbonLexer struct {
+	*antlr.BaseLexer
+	channelNames []string
+	modeNames    []string
+	// TODO: EOF string
+}
+
+var MindcarbonLexerLexerStaticData struct {
+	once                   sync.Once
+	serializedATN          []int32
+	ChannelNames           []string
+	ModeNames              []string
+	LiteralNames           []string
+	SymbolicNames          []string
+	RuleNames              []string
+	PredictionContextCache *antlr.PredictionContextCache
+	atn                    *antlr.ATN
+	decisionToDFA          []*antlr.DFA
+}
+
+func mindcarbonlexerLexerInit() {
+	staticData := &MindcarbonLexerLexerStaticData
+	staticData.ChannelNames = []string{
+		"DEFAULT_TOKEN_CHANNEL", "HIDDEN",
+	}
+	staticData.ModeNames = []string{
+		"DEFAULT_MODE",
+	}
+	staticData.LiteralNames = []string{
+		"", "", "", "", "", "", "", "'''", "", "", "'/'", "'*'", "'+'", "'-'",
+		"'^'", "'='", "':'", "','", "'('", "')'", "'{'", "'}'", "';'",
+	}
+	staticData.SymbolicNames = []string{
+		"", "COMPUTATION", "ID", "QUOTED_STRING", "ESC_SEQ", "UNICODE", "HEX",
+		"SINGLE_QUOTE", "INT", "FLOAT", "DIV", "MUL", "ADD", "MIN", "EXP", "EQUALS",
+		"COLUMN", "COMMA", "LPAREN", "RPAREN", "LCURLY", "RCURLY", "SM", "COMMENT",
+		"WS",
+	}
+	staticData.RuleNames = []string{
+		"COMPUTATION", "ID", "QUOTED_STRING", "ESC_SEQ", "UNICODE", "HEX", "SINGLE_QUOTE",
+		"INT", "FLOAT", "DIGIT", "DIV", "MUL", "ADD", "MIN", "EXP", "EQUALS",
+		"COLUMN", "COMMA", "LPAREN", "RPAREN", "LCURLY", "RCURLY", "SM", "COMMENT",
+		"WS",
+	}
+	staticData.PredictionContextCache = antlr.NewPredictionContextCache()
+	staticData.serializedATN = []int32{
+		4, 0, 24, 155, 6, -1, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2,
+		4, 7, 4, 2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 2, 8, 7, 8, 2, 9, 7, 9, 2,
+		10, 7, 10, 2, 11, 7, 11, 2, 12, 7, 12, 2, 13, 7, 13, 2, 14, 7, 14, 2, 15,
+		7, 15, 2, 16, 7, 16, 2, 17, 7, 17, 2, 18, 7, 18, 2, 19, 7, 19, 2, 20, 7,
+		20, 2, 21, 7, 21, 2, 22, 7, 22, 2, 23, 7, 23, 2, 24, 7, 24, 1, 0, 1, 0,
+		1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1,
+		5, 1, 66, 8, 1, 10, 1, 12, 1, 69, 9, 1, 1, 2, 1, 2, 1, 2, 5, 2, 74, 8,
+		2, 10, 2, 12, 2, 77, 9, 2, 1, 2, 1, 2, 1, 3, 1, 3, 1, 3, 3, 3, 84, 8, 3,
+		1, 4, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4, 1, 5, 1, 5, 1, 6, 1, 6, 1, 7, 1, 7,
+		5, 7, 98, 8, 7, 10, 7, 12, 7, 101, 9, 7, 1, 8, 1, 8, 1, 8, 1, 8, 1, 9,
+		4, 9, 108, 8, 9, 11, 9, 12, 9, 109, 1, 10, 1, 10, 1, 11, 1, 11, 1, 12,
+		1, 12, 1, 13, 1, 13, 1, 14, 1, 14, 1, 15, 1, 15, 1, 16, 1, 16, 1, 17, 1,
+		17, 1, 18, 1, 18, 1, 19, 1, 19, 1, 20, 1, 20, 1, 21, 1, 21, 1, 22, 1, 22,
+		1, 23, 1, 23, 1, 23, 1, 23, 5, 23, 142, 8, 23, 10, 23, 12, 23, 145, 9,
+		23, 1, 23, 1, 23, 1, 24, 4, 24, 150, 8, 24, 11, 24, 12, 24, 151, 1, 24,
+		1, 24, 0, 0, 25, 1, 1, 3, 2, 5, 3, 7, 4, 9, 5, 11, 6, 13, 7, 15, 8, 17,
+		9, 19, 0, 21, 10, 23, 11, 25, 12, 27, 13, 29, 14, 31, 15, 33, 16, 35, 17,
+		37, 18, 39, 19, 41, 20, 43, 21, 45, 22, 47, 23, 49, 24, 1, 0, 18, 2, 0,
+		67, 67, 99, 99, 2, 0, 79, 79, 111, 111, 2, 0, 77, 77, 109, 109, 2, 0, 80,
+		80, 112, 112, 2, 0, 85, 85, 117, 117, 2, 0, 84, 84, 116, 116, 2, 0, 65,
+		65, 97, 97, 2, 0, 73, 73, 105, 105, 2, 0, 78, 78, 110, 110, 2, 0, 65, 90,
+		97, 122, 4, 0, 48, 57, 65, 90, 95, 95, 97, 122, 2, 0, 34, 34, 92, 92, 9,
+		0, 34, 34, 39, 39, 47, 47, 92, 92, 98, 98, 102, 102, 110, 110, 114, 114,
+		116, 116, 3, 0, 48, 57, 65, 70, 97, 102, 1, 0, 49, 57, 1, 0, 48, 57, 2,
+		0, 10, 10, 13, 13, 3, 0, 9, 10, 13, 13, 32, 32, 161, 0, 1, 1, 0, 0, 0,
+		0, 3, 1, 0, 0, 0, 0, 5, 1, 0, 0, 0, 0, 7, 1, 0, 0, 0, 0, 9, 1, 0, 0, 0,
+		0, 11, 1, 0, 0, 0, 0, 13, 1, 0, 0, 0, 0, 15, 1, 0, 0, 0, 0, 17, 1, 0, 0,
+		0, 0, 21, 1, 0, 0, 0, 0, 23, 1, 0, 0, 0, 0, 25, 1, 0, 0, 0, 0, 27, 1, 0,
+		0, 0, 0, 29, 1, 0, 0, 0, 0, 31, 1, 0, 0, 0, 0, 33, 1, 0, 0, 0, 0, 35, 1,
+		0, 0, 0, 0, 37, 1, 0, 0, 0, 0, 39, 1, 0, 0, 0, 0, 41, 1, 0, 0, 0, 0, 43,
+		1, 0, 0, 0, 0, 45, 1, 0, 0, 0, 0, 47, 1, 0, 0, 0, 0, 49, 1, 0, 0, 0, 1,
+		51, 1, 0, 0, 0, 3, 63, 1, 0, 0, 0, 5, 70, 1, 0, 0, 0, 7, 80, 1, 0, 0, 0,
+		9, 85, 1, 0, 0, 0, 11, 91, 1, 0, 0, 0, 13, 93, 1, 0, 0, 0, 15, 95, 1, 0,
+		0, 0, 17, 102, 1, 0, 0, 0, 19, 107, 1, 0, 0, 0, 21, 111, 1, 0, 0, 0, 23,
+		113, 1, 0, 0, 0, 25, 115, 1, 0, 0, 0, 27, 117, 1, 0, 0, 0, 29, 119, 1,
+		0, 0, 0, 31, 121, 1, 0, 0, 0, 33, 123, 1, 0, 0, 0, 35, 125, 1, 0, 0, 0,
+		37, 127, 1, 0, 0, 0, 39, 129, 1, 0, 0, 0, 41, 131, 1, 0, 0, 0, 43, 133,
+		1, 0, 0, 0, 45, 135, 1, 0, 0, 0, 47, 137, 1, 0, 0, 0, 49, 149, 1, 0, 0,
+		0, 51, 52, 7, 0, 0, 0, 52, 53, 7, 1, 0, 0, 53, 54, 7, 2, 0, 0, 54, 55,
+		7, 3, 0, 0, 55, 56, 7, 4, 0, 0, 56, 57, 7, 5, 0, 0, 57, 58, 7, 6, 0, 0,
+		58, 59, 7, 5, 0, 0, 59, 60, 7, 7, 0, 0, 60, 61, 7, 1, 0, 0, 61, 62, 7,
+		8, 0, 0, 62, 2, 1, 0, 0, 0, 63, 67, 7, 9, 0, 0, 64, 66, 7, 10, 0, 0, 65,
+		64, 1, 0, 0, 0, 66, 69, 1, 0, 0, 0, 67, 65, 1, 0, 0, 0, 67, 68, 1, 0, 0,
+		0, 68, 4, 1, 0, 0, 0, 69, 67, 1, 0, 0, 0, 70, 75, 5, 34, 0, 0, 71, 74,
+		3, 7, 3, 0, 72, 74, 8, 11, 0, 0, 73, 71, 1, 0, 0, 0, 73, 72, 1, 0, 0, 0,
+		74, 77, 1, 0, 0, 0, 75, 73, 1, 0, 0, 0, 75, 76, 1, 0, 0, 0, 76, 78, 1,
+		0, 0, 0, 77, 75, 1, 0, 0, 0, 78, 79, 5, 34, 0, 0, 79, 6, 1, 0, 0, 0, 80,
+		83, 5, 92, 0, 0, 81, 84, 7, 12, 0, 0, 82, 84, 3, 9, 4, 0, 83, 81, 1, 0,
+		0, 0, 83, 82, 1, 0, 0, 0, 84, 8, 1, 0, 0, 0, 85, 86, 5, 117, 0, 0, 86,
+		87, 3, 11, 5, 0, 87, 88, 3, 11, 5, 0, 88, 89, 3, 11, 5, 0, 89, 90, 3, 11,
+		5, 0, 90, 10, 1, 0, 0, 0, 91, 92, 7, 13, 0, 0, 92, 12, 1, 0, 0, 0, 93,
+		94, 5, 39, 0, 0, 94, 14, 1, 0, 0, 0, 95, 99, 7, 14, 0, 0, 96, 98, 3, 19,
+		9, 0, 97, 96, 1, 0, 0, 0, 98, 101, 1, 0, 0, 0, 99, 97, 1, 0, 0, 0, 99,
+		100, 1, 0, 0, 0, 100, 16, 1, 0, 0, 0, 101, 99, 1, 0, 0, 0, 102, 103, 3,
+		15, 7, 0, 103, 104, 9, 0, 0, 0, 104, 105, 3, 15, 7, 0, 105, 18, 1, 0, 0,
+		0, 106, 108, 7, 15, 0, 0, 107, 106, 1, 0, 0, 0, 108, 109, 1, 0, 0, 0, 109,
+		107, 1, 0, 0, 0, 109, 110, 1, 0, 0, 0, 110, 20, 1, 0, 0, 0, 111, 112, 5,
+		47, 0, 0, 112, 22, 1, 0, 0, 0, 113, 114, 5, 42, 0, 0, 114, 24, 1, 0, 0,
+		0, 115, 116, 5, 43, 0, 0, 116, 26, 1, 0, 0, 0, 117, 118, 5, 45, 0, 0, 118,
+		28, 1, 0, 0, 0, 119, 120, 5, 94, 0, 0, 120, 30, 1, 0, 0, 0, 121, 122, 5,
+		61, 0, 0, 122, 32, 1, 0, 0, 0, 123, 124, 5, 58, 0, 0, 124, 34, 1, 0, 0,
+		0, 125, 126, 5, 44, 0, 0, 126, 36, 1, 0, 0, 0, 127, 128, 5, 40, 0, 0, 128,
+		38, 1, 0, 0, 0, 129, 130, 5, 41, 0, 0, 130, 40, 1, 0, 0, 0, 131, 132, 5,
+		123, 0, 0, 132, 42, 1, 0, 0, 0, 133, 134, 5, 125, 0, 0, 134, 44, 1, 0,
+		0, 0, 135, 136, 5, 59, 0, 0, 136, 46, 1, 0, 0, 0, 137, 138, 5, 47, 0, 0,
+		138, 139, 5, 47, 0, 0, 139, 143, 1, 0, 0, 0, 140, 142, 8, 16, 0, 0, 141,
+		140, 1, 0, 0, 0, 142, 145, 1, 0, 0, 0, 143, 141, 1, 0, 0, 0, 143, 144,
+		1, 0, 0, 0, 144, 146, 1, 0, 0, 0, 145, 143, 1, 0, 0, 0, 146, 147, 6, 23,
+		0, 0, 147, 48, 1, 0, 0, 0, 148, 150, 7, 17, 0, 0, 149, 148, 1, 0, 0, 0,
+		150, 151, 1, 0, 0, 0, 151, 149, 1, 0, 0, 0, 151, 152, 1, 0, 0, 0, 152,
+		153, 1, 0, 0, 0, 153, 154, 6, 24, 0, 0, 154, 50, 1, 0, 0, 0, 9, 0, 67,
+		73, 75, 83, 99, 109, 143, 151, 1, 6, 0, 0,
+	}
+	deserializer := antlr.NewATNDeserializer(nil)
+	staticData.atn = deserializer.Deserialize(staticData.serializedATN)
+	atn := staticData.atn
+	staticData.decisionToDFA = make([]*antlr.DFA, len(atn.DecisionToState))
+	decisionToDFA := staticData.decisionToDFA
+	for index, state := range atn.DecisionToState {
+		decisionToDFA[index] = antlr.NewDFA(state, index)
+	}
+}
+
+// mindcarbonLexerInit initializes any static state used to implement mindcarbonLexer. By default the
+// static state used to implement the lexer is lazily initialized during the first call to
+// NewmindcarbonLexer(). You can call this function if you wish to initialize the static state ahead
+// of time.
+func MindcarbonLexerInit() {
+	staticData := &MindcarbonLexerLexerStaticData
+	staticData.once.Do(mindcarbonlexerLexerInit)
+}
+
+// NewmindcarbonLexer produces a new lexer instance for the optional input antlr.CharStream.
+func NewmindcarbonLexer(input antlr.CharStream) *mindcarbonLexer {
+	MindcarbonLexerInit()
+	l := new(mindcarbonLexer)
+	l.BaseLexer = antlr.NewBaseLexer(input)
+	staticData := &MindcarbonLexerLexerStaticData
+	l.Interpreter = antlr.NewLexerATNSimulator(l, staticData.atn, staticData.decisionToDFA, staticData.PredictionContextCache)
+	l.channelNames = staticData.ChannelNames
+	l.modeNames = staticData.ModeNames
+	l.RuleNames = staticData.RuleNames
+	l.LiteralNames = staticData.LiteralNames
+	l.SymbolicNames = staticData.SymbolicNames
+	l.GrammarFileName = "mindcarbon.g4"
+	// TODO: l.EOF = antlr.TokenEOF
+
+	return l
+}
+
+// mindcarbonLexer tokens.
+const (
+	mindcarbonLexerCOMPUTATION   = 1
+	mindcarbonLexerID            = 2
+	mindcarbonLexerQUOTED_STRING = 3
+	mindcarbonLexerESC_SEQ       = 4
+	mindcarbonLexerUNICODE       = 5
+	mindcarbonLexerHEX           = 6
+	mindcarbonLexerSINGLE_QUOTE  = 7
+	mindcarbonLexerINT           = 8
+	mindcarbonLexerFLOAT         = 9
+	mindcarbonLexerDIV           = 10
+	mindcarbonLexerMUL           = 11
+	mindcarbonLexerADD           = 12
+	mindcarbonLexerMIN           = 13
+	mindcarbonLexerEXP           = 14
+	mindcarbonLexerEQUALS        = 15
+	mindcarbonLexerCOLUMN        = 16
+	mindcarbonLexerCOMMA         = 17
+	mindcarbonLexerLPAREN        = 18
+	mindcarbonLexerRPAREN        = 19
+	mindcarbonLexerLCURLY        = 20
+	mindcarbonLexerRCURLY        = 21
+	mindcarbonLexerSM            = 22
+	mindcarbonLexerCOMMENT       = 23
+	mindcarbonLexerWS            = 24
+)
