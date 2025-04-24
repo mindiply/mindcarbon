@@ -20,20 +20,20 @@ type mindcarbonVisitor interface {
 	// Visit a parse tree produced by mindcarbonParser#paramDef.
 	VisitParamDef(ctx *ParamDefContext) interface{}
 
+	// Visit a parse tree produced by mindcarbonParser#block.
+	VisitBlock(ctx *BlockContext) interface{}
+
+	// Visit a parse tree produced by mindcarbonParser#bstat.
+	VisitBstat(ctx *BstatContext) interface{}
+
 	// Visit a parse tree produced by mindcarbonParser#assignment.
 	VisitAssignment(ctx *AssignmentContext) interface{}
 
-	// Visit a parse tree produced by mindcarbonParser#division.
-	VisitDivision(ctx *DivisionContext) interface{}
+	// Visit a parse tree produced by mindcarbonParser#idResolution.
+	VisitIdResolution(ctx *IdResolutionContext) interface{}
 
-	// Visit a parse tree produced by mindcarbonParser#identifier.
-	VisitIdentifier(ctx *IdentifierContext) interface{}
-
-	// Visit a parse tree produced by mindcarbonParser#exponentiation.
-	VisitExponentiation(ctx *ExponentiationContext) interface{}
-
-	// Visit a parse tree produced by mindcarbonParser#intConstant.
-	VisitIntConstant(ctx *IntConstantContext) interface{}
+	// Visit a parse tree produced by mindcarbonParser#mulOrDivOp.
+	VisitMulOrDivOp(ctx *MulOrDivOpContext) interface{}
 
 	// Visit a parse tree produced by mindcarbonParser#stringConstant.
 	VisitStringConstant(ctx *StringConstantContext) interface{}
@@ -41,18 +41,15 @@ type mindcarbonVisitor interface {
 	// Visit a parse tree produced by mindcarbonParser#functionCall.
 	VisitFunctionCall(ctx *FunctionCallContext) interface{}
 
-	// Visit a parse tree produced by mindcarbonParser#floatConstant.
-	VisitFloatConstant(ctx *FloatConstantContext) interface{}
+	// Visit a parse tree produced by mindcarbonParser#addOrMinOp.
+	VisitAddOrMinOp(ctx *AddOrMinOpContext) interface{}
 
-	// Visit a parse tree produced by mindcarbonParser#subtraction.
-	VisitSubtraction(ctx *SubtractionContext) interface{}
-
-	// Visit a parse tree produced by mindcarbonParser#multiplication.
-	VisitMultiplication(ctx *MultiplicationContext) interface{}
+	// Visit a parse tree produced by mindcarbonParser#expOp.
+	VisitExpOp(ctx *ExpOpContext) interface{}
 
 	// Visit a parse tree produced by mindcarbonParser#grouping.
 	VisitGrouping(ctx *GroupingContext) interface{}
 
-	// Visit a parse tree produced by mindcarbonParser#addition.
-	VisitAddition(ctx *AdditionContext) interface{}
+	// Visit a parse tree produced by mindcarbonParser#numberConstant.
+	VisitNumberConstant(ctx *NumberConstantContext) interface{}
 }

@@ -24,23 +24,23 @@ func (v *BasemindcarbonVisitor) VisitParamDef(ctx *ParamDefContext) interface{} 
 	return v.VisitChildren(ctx)
 }
 
+func (v *BasemindcarbonVisitor) VisitBlock(ctx *BlockContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
+func (v *BasemindcarbonVisitor) VisitBstat(ctx *BstatContext) interface{} {
+	return v.VisitChildren(ctx)
+}
+
 func (v *BasemindcarbonVisitor) VisitAssignment(ctx *AssignmentContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
-func (v *BasemindcarbonVisitor) VisitDivision(ctx *DivisionContext) interface{} {
+func (v *BasemindcarbonVisitor) VisitIdResolution(ctx *IdResolutionContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
-func (v *BasemindcarbonVisitor) VisitIdentifier(ctx *IdentifierContext) interface{} {
-	return v.VisitChildren(ctx)
-}
-
-func (v *BasemindcarbonVisitor) VisitExponentiation(ctx *ExponentiationContext) interface{} {
-	return v.VisitChildren(ctx)
-}
-
-func (v *BasemindcarbonVisitor) VisitIntConstant(ctx *IntConstantContext) interface{} {
+func (v *BasemindcarbonVisitor) VisitMulOrDivOp(ctx *MulOrDivOpContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
@@ -52,15 +52,11 @@ func (v *BasemindcarbonVisitor) VisitFunctionCall(ctx *FunctionCallContext) inte
 	return v.VisitChildren(ctx)
 }
 
-func (v *BasemindcarbonVisitor) VisitFloatConstant(ctx *FloatConstantContext) interface{} {
+func (v *BasemindcarbonVisitor) VisitAddOrMinOp(ctx *AddOrMinOpContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
-func (v *BasemindcarbonVisitor) VisitSubtraction(ctx *SubtractionContext) interface{} {
-	return v.VisitChildren(ctx)
-}
-
-func (v *BasemindcarbonVisitor) VisitMultiplication(ctx *MultiplicationContext) interface{} {
+func (v *BasemindcarbonVisitor) VisitExpOp(ctx *ExpOpContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
@@ -68,6 +64,6 @@ func (v *BasemindcarbonVisitor) VisitGrouping(ctx *GroupingContext) interface{} 
 	return v.VisitChildren(ctx)
 }
 
-func (v *BasemindcarbonVisitor) VisitAddition(ctx *AdditionContext) interface{} {
+func (v *BasemindcarbonVisitor) VisitNumberConstant(ctx *NumberConstantContext) interface{} {
 	return v.VisitChildren(ctx)
 }

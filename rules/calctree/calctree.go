@@ -5,7 +5,6 @@ import (
 	"math"
 )
 
-
 type CalcTree interface {
 	OutputNode() CalcNode
 	NumberValue(string) (float64, error)
@@ -79,7 +78,6 @@ func (n *BaseCalcNode) AsCalcNode() CalcNode {
 	return n
 }
 
-
 type NumberValueNode struct {
 	BaseCalcNode
 	value float64
@@ -125,7 +123,7 @@ func (n *StringValueNode) AddUsedBy(child NodeBuilder) {
 	panic("AddUsedBy called on a terminal NumberValueNode")
 }
 
-func NewStringValueNode (str string) NodeBuilder {
+func NewStringValueNode(str string) NodeBuilder {
 	return &StringValueNode{
 		BaseCalcNode: BaseCalcNode{
 			generatedBy: nil,
@@ -219,7 +217,6 @@ func (e *ExponentiationNode) Value() interface{} {
 	return result
 }
 
-
 func (g *CTree) SetInputNode(name string, node InputNode) error {
 	if g.inputNodes == nil {
 		g.inputNodes = make(map[string]InputNode)
@@ -230,8 +227,6 @@ func (g *CTree) SetInputNode(name string, node InputNode) error {
 	g.inputNodes[name] = node
 	return nil
 }
-
-
 
 type CTree struct {
 	outputNode CalcNode
@@ -245,8 +240,6 @@ func NewGraph() *CTree {
 func (g *CTree) OutputNode() CalcNode {
 	return g.outputNode
 }
-
-
 
 type NumberOutputNode struct {
 	BaseOperationNode

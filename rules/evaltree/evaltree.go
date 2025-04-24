@@ -71,9 +71,9 @@ func (m *MathExpressionEvaluator) Evaluate(enf Environment) Object {
 }
 
 type ParameterDefinition struct {
-	name          string
-	quality       string
-	unitOfMeasure string
+	Name          string
+	Quality       string
+	UnitOfMeasure string
 }
 
 type FunctionDefinitionEvaluator struct {
@@ -84,7 +84,7 @@ type FunctionDefinitionEvaluator struct {
 
 func (f *FunctionDefinitionEvaluator) Evaluate(env Environment) Object {
 	env.Set(f.name, f)
-	return &NullObject{}
+	return NULL
 }
 
 type BlockEvaluator struct {
@@ -146,29 +146,33 @@ func (p *ParenthesizedEvaluator) Evaluate(env Environment) Object {
 }
 
 type VariableEvaluator struct {
-	name string
+	Name string
 }
 
-func (v *VariableEvaluator) Evaluate(env Environment) Object {
-	variable, ok := env.Get(v.name)
+func (v VariableEvaluator) Evaluate(env Environment) Object {
+	variable, ok := env.Get(v.Name)
 	if !ok {
-		return NewError("Variable %s not found", v.name)
+		return NewError("Variable %s not found", v.Name)
 	}
 	return variable.Evaluate(env)
 }
 
 type AssignmentEvaluator struct {
-	name  string
-	value Evaluator
+	name          string
+	bodyEvaluator Evaluator
 }
 
 func (a *AssignmentEvaluator) Evaluate(env Environment) Object {
-	value := a.value.Evaluate(env)
+	value := a.bodyEvaluator.Evaluate(env)
 	if value.Type() == ERRORTYPE {
-		return value
+		return NewError("Cannot resolve expression being assigned to %s: %s", a.name, value.Value())
 	}
-	env.Set(a.name, ScalarEvaluator{Value: value})
-	return &NullObject{}
+	env.Set(a.name, a.bodyEvaluator)
+	return NULL
+}
+
+func NewVariableEvaluator(name string) Evaluator {
+	return &VariableEvaluator{Name: name}
 }
 
 func NewProgramEvaluator(statements []Evaluator) Evaluator {
@@ -183,6 +187,29 @@ func NewStringEvaluator(value string) Evaluator {
 	return ScalarEvaluator{Value: &StringObject{value: value}}
 }
 
+func NewParameterDefinition(name, quality, unitOfMeasure string) ParameterDefinition {
+	return ParameterDefinition{Name: name, Quality: quality, UnitOfMeasure: unitOfMeasure}
+}
+
 func NewComputationDefEvaluator(name string, arguments map[string]ParameterDefinition, body Evaluator) Evaluator {
 	return &FunctionDefinitionEvaluator{name: name, arguments: arguments, body: body}
+}
+
+func NewMathExpressionEvaluator(left, right Evaluator, operator string) Evaluator {
+	return &MathExpressionEvaluator{left: left, right: right, operator: operator}
+}
+
+func NewFunctionCallEvaluator(name string, arguments map[string]Evaluator) Evaluator {
+	if arguments == nil {
+		arguments = make(map[string]Evaluator)
+	}
+	return &FunctionCallEvaluator{name: name, arguments: arguments}
+}
+
+func NewAssignmentEvaluator(name string, bodyEvaluator Evaluator) Evaluator {
+	return &AssignmentEvaluator{name: name, bodyEvaluator: bodyEvaluator}
+}
+
+func NewBlockEvaluator(statements []Evaluator) Evaluator {
+	return &BlockEvaluator{statements: statements}
 }

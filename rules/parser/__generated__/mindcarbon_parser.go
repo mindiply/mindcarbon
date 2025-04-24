@@ -33,70 +33,70 @@ var MindcarbonParserStaticData struct {
 func mindcarbonParserInit() {
 	staticData := &MindcarbonParserStaticData
 	staticData.LiteralNames = []string{
-		"", "", "", "", "", "", "", "'''", "", "", "'/'", "'*'", "'+'", "'-'",
-		"'^'", "'='", "':'", "','", "'('", "')'", "'{'", "'}'", "';'",
+		"", "", "", "", "", "", "'''", "", "", "'/'", "'*'", "'+'", "'-'", "'^'",
+		"'='", "':'", "','", "'('", "')'", "'{'", "'}'", "';'",
 	}
 	staticData.SymbolicNames = []string{
-		"", "COMPUTATION", "ID", "QUOTED_STRING", "ESC_SEQ", "UNICODE", "HEX",
-		"SINGLE_QUOTE", "INT", "FLOAT", "DIV", "MUL", "ADD", "MIN", "EXP", "EQUALS",
-		"COLUMN", "COMMA", "LPAREN", "RPAREN", "LCURLY", "RCURLY", "SM", "COMMENT",
-		"WS",
+		"", "COMPUTATION", "ID", "QUOTED_STRING", "ESC_SEQ", "UNICODE", "SINGLE_QUOTE",
+		"INT", "FLOAT", "DIV", "MUL", "ADD", "MIN", "EXP", "EQUALS", "COLUMN",
+		"COMMA", "LPAREN", "RPAREN", "LCURLY", "RCURLY", "SM", "COMMENT", "WS",
 	}
 	staticData.RuleNames = []string{
-		"program", "statement", "computationDef", "paramDef", "assignment",
-		"expr",
+		"program", "statement", "computationDef", "paramDef", "block", "bstat",
+		"assignment", "expr",
 	}
 	staticData.PredictionContextCache = antlr.NewPredictionContextCache()
 	staticData.serializedATN = []int32{
-		4, 1, 24, 113, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
-		4, 2, 5, 7, 5, 1, 0, 5, 0, 14, 8, 0, 10, 0, 12, 0, 17, 9, 0, 1, 1, 1, 1,
-		1, 1, 1, 1, 1, 1, 3, 1, 24, 8, 1, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 5,
-		2, 32, 8, 2, 10, 2, 12, 2, 35, 9, 2, 3, 2, 37, 8, 2, 1, 2, 1, 2, 1, 2,
-		5, 2, 42, 8, 2, 10, 2, 12, 2, 45, 9, 2, 1, 2, 1, 2, 1, 2, 1, 3, 1, 3, 1,
-		3, 1, 3, 1, 3, 1, 3, 3, 3, 56, 8, 3, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4, 1, 5,
-		1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 5, 5, 73, 8, 5, 10,
-		5, 12, 5, 76, 9, 5, 3, 5, 78, 8, 5, 1, 5, 1, 5, 1, 5, 3, 5, 83, 8, 5, 1,
-		5, 1, 5, 3, 5, 87, 8, 5, 1, 5, 1, 5, 3, 5, 91, 8, 5, 1, 5, 1, 5, 1, 5,
-		1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5, 1, 5,
-		5, 5, 108, 8, 5, 10, 5, 12, 5, 111, 9, 5, 1, 5, 0, 1, 10, 6, 0, 2, 4, 6,
-		8, 10, 0, 0, 127, 0, 15, 1, 0, 0, 0, 2, 23, 1, 0, 0, 0, 4, 25, 1, 0, 0,
-		0, 6, 49, 1, 0, 0, 0, 8, 57, 1, 0, 0, 0, 10, 90, 1, 0, 0, 0, 12, 14, 3,
-		2, 1, 0, 13, 12, 1, 0, 0, 0, 14, 17, 1, 0, 0, 0, 15, 13, 1, 0, 0, 0, 15,
-		16, 1, 0, 0, 0, 16, 1, 1, 0, 0, 0, 17, 15, 1, 0, 0, 0, 18, 24, 3, 8, 4,
-		0, 19, 24, 3, 4, 2, 0, 20, 21, 3, 10, 5, 0, 21, 22, 5, 22, 0, 0, 22, 24,
-		1, 0, 0, 0, 23, 18, 1, 0, 0, 0, 23, 19, 1, 0, 0, 0, 23, 20, 1, 0, 0, 0,
-		24, 3, 1, 0, 0, 0, 25, 26, 5, 1, 0, 0, 26, 27, 5, 2, 0, 0, 27, 36, 5, 18,
-		0, 0, 28, 33, 3, 6, 3, 0, 29, 30, 5, 17, 0, 0, 30, 32, 3, 6, 3, 0, 31,
-		29, 1, 0, 0, 0, 32, 35, 1, 0, 0, 0, 33, 31, 1, 0, 0, 0, 33, 34, 1, 0, 0,
-		0, 34, 37, 1, 0, 0, 0, 35, 33, 1, 0, 0, 0, 36, 28, 1, 0, 0, 0, 36, 37,
-		1, 0, 0, 0, 37, 38, 1, 0, 0, 0, 38, 39, 5, 19, 0, 0, 39, 43, 5, 20, 0,
-		0, 40, 42, 3, 8, 4, 0, 41, 40, 1, 0, 0, 0, 42, 45, 1, 0, 0, 0, 43, 41,
-		1, 0, 0, 0, 43, 44, 1, 0, 0, 0, 44, 46, 1, 0, 0, 0, 45, 43, 1, 0, 0, 0,
-		46, 47, 3, 10, 5, 0, 47, 48, 5, 21, 0, 0, 48, 5, 1, 0, 0, 0, 49, 50, 5,
-		2, 0, 0, 50, 51, 5, 16, 0, 0, 51, 55, 5, 2, 0, 0, 52, 53, 5, 18, 0, 0,
-		53, 54, 5, 2, 0, 0, 54, 56, 5, 19, 0, 0, 55, 52, 1, 0, 0, 0, 55, 56, 1,
-		0, 0, 0, 56, 7, 1, 0, 0, 0, 57, 58, 5, 2, 0, 0, 58, 59, 5, 15, 0, 0, 59,
-		60, 3, 10, 5, 0, 60, 61, 5, 22, 0, 0, 61, 9, 1, 0, 0, 0, 62, 63, 6, 5,
-		-1, 0, 63, 64, 5, 18, 0, 0, 64, 65, 3, 10, 5, 0, 65, 66, 5, 19, 0, 0, 66,
-		91, 1, 0, 0, 0, 67, 68, 5, 2, 0, 0, 68, 77, 5, 18, 0, 0, 69, 74, 3, 10,
-		5, 0, 70, 71, 5, 17, 0, 0, 71, 73, 3, 10, 5, 0, 72, 70, 1, 0, 0, 0, 73,
-		76, 1, 0, 0, 0, 74, 72, 1, 0, 0, 0, 74, 75, 1, 0, 0, 0, 75, 78, 1, 0, 0,
-		0, 76, 74, 1, 0, 0, 0, 77, 69, 1, 0, 0, 0, 77, 78, 1, 0, 0, 0, 78, 79,
-		1, 0, 0, 0, 79, 91, 5, 19, 0, 0, 80, 91, 5, 2, 0, 0, 81, 83, 5, 13, 0,
-		0, 82, 81, 1, 0, 0, 0, 82, 83, 1, 0, 0, 0, 83, 84, 1, 0, 0, 0, 84, 91,
-		5, 9, 0, 0, 85, 87, 5, 13, 0, 0, 86, 85, 1, 0, 0, 0, 86, 87, 1, 0, 0, 0,
-		87, 88, 1, 0, 0, 0, 88, 91, 5, 8, 0, 0, 89, 91, 5, 3, 0, 0, 90, 62, 1,
-		0, 0, 0, 90, 67, 1, 0, 0, 0, 90, 80, 1, 0, 0, 0, 90, 82, 1, 0, 0, 0, 90,
-		86, 1, 0, 0, 0, 90, 89, 1, 0, 0, 0, 91, 109, 1, 0, 0, 0, 92, 93, 10, 10,
-		0, 0, 93, 94, 5, 14, 0, 0, 94, 108, 3, 10, 5, 11, 95, 96, 10, 9, 0, 0,
-		96, 97, 5, 10, 0, 0, 97, 108, 3, 10, 5, 10, 98, 99, 10, 8, 0, 0, 99, 100,
-		5, 11, 0, 0, 100, 108, 3, 10, 5, 9, 101, 102, 10, 7, 0, 0, 102, 103, 5,
-		12, 0, 0, 103, 108, 3, 10, 5, 8, 104, 105, 10, 6, 0, 0, 105, 106, 5, 13,
-		0, 0, 106, 108, 3, 10, 5, 7, 107, 92, 1, 0, 0, 0, 107, 95, 1, 0, 0, 0,
-		107, 98, 1, 0, 0, 0, 107, 101, 1, 0, 0, 0, 107, 104, 1, 0, 0, 0, 108, 111,
-		1, 0, 0, 0, 109, 107, 1, 0, 0, 0, 109, 110, 1, 0, 0, 0, 110, 11, 1, 0,
-		0, 0, 111, 109, 1, 0, 0, 0, 13, 15, 23, 33, 36, 43, 55, 74, 77, 82, 86,
-		90, 107, 109,
+		4, 1, 23, 119, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
+		4, 2, 5, 7, 5, 2, 6, 7, 6, 2, 7, 7, 7, 1, 0, 5, 0, 18, 8, 0, 10, 0, 12,
+		0, 21, 9, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 28, 8, 1, 1, 2, 1, 2,
+		1, 2, 1, 2, 1, 2, 1, 2, 5, 2, 36, 8, 2, 10, 2, 12, 2, 39, 9, 2, 3, 2, 41,
+		8, 2, 1, 2, 1, 2, 1, 2, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 3, 3, 52, 8,
+		3, 1, 4, 1, 4, 5, 4, 56, 8, 4, 10, 4, 12, 4, 59, 9, 4, 1, 4, 1, 4, 1, 4,
+		1, 5, 1, 5, 1, 5, 1, 5, 3, 5, 68, 8, 5, 1, 6, 1, 6, 1, 6, 1, 6, 1, 6, 1,
+		7, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 1,
+		7, 1, 7, 5, 7, 89, 8, 7, 10, 7, 12, 7, 92, 9, 7, 3, 7, 94, 8, 7, 1, 7,
+		1, 7, 1, 7, 3, 7, 99, 8, 7, 1, 7, 1, 7, 3, 7, 103, 8, 7, 1, 7, 1, 7, 1,
+		7, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 1, 7, 5, 7, 114, 8, 7, 10, 7, 12, 7, 117,
+		9, 7, 1, 7, 0, 1, 14, 8, 0, 2, 4, 6, 8, 10, 12, 14, 0, 3, 1, 0, 7, 8, 1,
+		0, 9, 10, 1, 0, 11, 12, 128, 0, 19, 1, 0, 0, 0, 2, 27, 1, 0, 0, 0, 4, 29,
+		1, 0, 0, 0, 6, 45, 1, 0, 0, 0, 8, 53, 1, 0, 0, 0, 10, 67, 1, 0, 0, 0, 12,
+		69, 1, 0, 0, 0, 14, 102, 1, 0, 0, 0, 16, 18, 3, 2, 1, 0, 17, 16, 1, 0,
+		0, 0, 18, 21, 1, 0, 0, 0, 19, 17, 1, 0, 0, 0, 19, 20, 1, 0, 0, 0, 20, 1,
+		1, 0, 0, 0, 21, 19, 1, 0, 0, 0, 22, 23, 3, 14, 7, 0, 23, 24, 5, 21, 0,
+		0, 24, 28, 1, 0, 0, 0, 25, 28, 3, 4, 2, 0, 26, 28, 3, 12, 6, 0, 27, 22,
+		1, 0, 0, 0, 27, 25, 1, 0, 0, 0, 27, 26, 1, 0, 0, 0, 28, 3, 1, 0, 0, 0,
+		29, 30, 5, 1, 0, 0, 30, 31, 5, 2, 0, 0, 31, 40, 5, 17, 0, 0, 32, 37, 3,
+		6, 3, 0, 33, 34, 5, 16, 0, 0, 34, 36, 3, 6, 3, 0, 35, 33, 1, 0, 0, 0, 36,
+		39, 1, 0, 0, 0, 37, 35, 1, 0, 0, 0, 37, 38, 1, 0, 0, 0, 38, 41, 1, 0, 0,
+		0, 39, 37, 1, 0, 0, 0, 40, 32, 1, 0, 0, 0, 40, 41, 1, 0, 0, 0, 41, 42,
+		1, 0, 0, 0, 42, 43, 5, 18, 0, 0, 43, 44, 3, 8, 4, 0, 44, 5, 1, 0, 0, 0,
+		45, 46, 5, 2, 0, 0, 46, 47, 5, 15, 0, 0, 47, 51, 5, 2, 0, 0, 48, 49, 5,
+		17, 0, 0, 49, 50, 5, 2, 0, 0, 50, 52, 5, 18, 0, 0, 51, 48, 1, 0, 0, 0,
+		51, 52, 1, 0, 0, 0, 52, 7, 1, 0, 0, 0, 53, 57, 5, 19, 0, 0, 54, 56, 3,
+		10, 5, 0, 55, 54, 1, 0, 0, 0, 56, 59, 1, 0, 0, 0, 57, 55, 1, 0, 0, 0, 57,
+		58, 1, 0, 0, 0, 58, 60, 1, 0, 0, 0, 59, 57, 1, 0, 0, 0, 60, 61, 3, 14,
+		7, 0, 61, 62, 5, 20, 0, 0, 62, 9, 1, 0, 0, 0, 63, 68, 3, 12, 6, 0, 64,
+		65, 3, 14, 7, 0, 65, 66, 5, 21, 0, 0, 66, 68, 1, 0, 0, 0, 67, 63, 1, 0,
+		0, 0, 67, 64, 1, 0, 0, 0, 68, 11, 1, 0, 0, 0, 69, 70, 5, 2, 0, 0, 70, 71,
+		5, 14, 0, 0, 71, 72, 3, 14, 7, 0, 72, 73, 5, 21, 0, 0, 73, 13, 1, 0, 0,
+		0, 74, 75, 6, 7, -1, 0, 75, 76, 5, 17, 0, 0, 76, 77, 3, 14, 7, 0, 77, 78,
+		5, 18, 0, 0, 78, 103, 1, 0, 0, 0, 79, 80, 5, 2, 0, 0, 80, 93, 5, 17, 0,
+		0, 81, 82, 5, 2, 0, 0, 82, 83, 5, 15, 0, 0, 83, 90, 3, 14, 7, 0, 84, 85,
+		5, 16, 0, 0, 85, 86, 5, 2, 0, 0, 86, 87, 5, 15, 0, 0, 87, 89, 3, 14, 7,
+		0, 88, 84, 1, 0, 0, 0, 89, 92, 1, 0, 0, 0, 90, 88, 1, 0, 0, 0, 90, 91,
+		1, 0, 0, 0, 91, 94, 1, 0, 0, 0, 92, 90, 1, 0, 0, 0, 93, 81, 1, 0, 0, 0,
+		93, 94, 1, 0, 0, 0, 94, 95, 1, 0, 0, 0, 95, 103, 5, 18, 0, 0, 96, 103,
+		5, 2, 0, 0, 97, 99, 5, 12, 0, 0, 98, 97, 1, 0, 0, 0, 98, 99, 1, 0, 0, 0,
+		99, 100, 1, 0, 0, 0, 100, 103, 7, 0, 0, 0, 101, 103, 5, 3, 0, 0, 102, 74,
+		1, 0, 0, 0, 102, 79, 1, 0, 0, 0, 102, 96, 1, 0, 0, 0, 102, 98, 1, 0, 0,
+		0, 102, 101, 1, 0, 0, 0, 103, 115, 1, 0, 0, 0, 104, 105, 10, 7, 0, 0, 105,
+		106, 5, 13, 0, 0, 106, 114, 3, 14, 7, 8, 107, 108, 10, 6, 0, 0, 108, 109,
+		7, 1, 0, 0, 109, 114, 3, 14, 7, 7, 110, 111, 10, 5, 0, 0, 111, 112, 7,
+		2, 0, 0, 112, 114, 3, 14, 7, 6, 113, 104, 1, 0, 0, 0, 113, 107, 1, 0, 0,
+		0, 113, 110, 1, 0, 0, 0, 114, 117, 1, 0, 0, 0, 115, 113, 1, 0, 0, 0, 115,
+		116, 1, 0, 0, 0, 116, 15, 1, 0, 0, 0, 117, 115, 1, 0, 0, 0, 13, 19, 27,
+		37, 40, 51, 57, 67, 90, 93, 98, 102, 113, 115,
 	}
 	deserializer := antlr.NewATNDeserializer(nil)
 	staticData.atn = deserializer.Deserialize(staticData.serializedATN)
@@ -140,25 +140,24 @@ const (
 	mindcarbonParserQUOTED_STRING = 3
 	mindcarbonParserESC_SEQ       = 4
 	mindcarbonParserUNICODE       = 5
-	mindcarbonParserHEX           = 6
-	mindcarbonParserSINGLE_QUOTE  = 7
-	mindcarbonParserINT           = 8
-	mindcarbonParserFLOAT         = 9
-	mindcarbonParserDIV           = 10
-	mindcarbonParserMUL           = 11
-	mindcarbonParserADD           = 12
-	mindcarbonParserMIN           = 13
-	mindcarbonParserEXP           = 14
-	mindcarbonParserEQUALS        = 15
-	mindcarbonParserCOLUMN        = 16
-	mindcarbonParserCOMMA         = 17
-	mindcarbonParserLPAREN        = 18
-	mindcarbonParserRPAREN        = 19
-	mindcarbonParserLCURLY        = 20
-	mindcarbonParserRCURLY        = 21
-	mindcarbonParserSM            = 22
-	mindcarbonParserCOMMENT       = 23
-	mindcarbonParserWS            = 24
+	mindcarbonParserSINGLE_QUOTE  = 6
+	mindcarbonParserINT           = 7
+	mindcarbonParserFLOAT         = 8
+	mindcarbonParserDIV           = 9
+	mindcarbonParserMUL           = 10
+	mindcarbonParserADD           = 11
+	mindcarbonParserMIN           = 12
+	mindcarbonParserEXP           = 13
+	mindcarbonParserEQUALS        = 14
+	mindcarbonParserCOLUMN        = 15
+	mindcarbonParserCOMMA         = 16
+	mindcarbonParserLPAREN        = 17
+	mindcarbonParserRPAREN        = 18
+	mindcarbonParserLCURLY        = 19
+	mindcarbonParserRCURLY        = 20
+	mindcarbonParserSM            = 21
+	mindcarbonParserCOMMENT       = 22
+	mindcarbonParserWS            = 23
 )
 
 // mindcarbonParser rules.
@@ -167,8 +166,10 @@ const (
 	mindcarbonParserRULE_statement      = 1
 	mindcarbonParserRULE_computationDef = 2
 	mindcarbonParserRULE_paramDef       = 3
-	mindcarbonParserRULE_assignment     = 4
-	mindcarbonParserRULE_expr           = 5
+	mindcarbonParserRULE_block          = 4
+	mindcarbonParserRULE_bstat          = 5
+	mindcarbonParserRULE_assignment     = 6
+	mindcarbonParserRULE_expr           = 7
 )
 
 // IProgramContext is an interface to support dynamic dispatch.
@@ -295,20 +296,20 @@ func (p *mindcarbonParser) Program() (localctx IProgramContext) {
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(15)
+	p.SetState(19)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&271118) != 0 {
+	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&135566) != 0 {
 		{
-			p.SetState(12)
+			p.SetState(16)
 			p.Statement()
 		}
 
-		p.SetState(17)
+		p.SetState(21)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -337,10 +338,10 @@ type IStatementContext interface {
 	GetParser() antlr.Parser
 
 	// Getter signatures
-	Assignment() IAssignmentContext
-	ComputationDef() IComputationDefContext
 	Expr() IExprContext
 	SM() antlr.TerminalNode
+	ComputationDef() IComputationDefContext
+	Assignment() IAssignmentContext
 
 	// IsStatementContext differentiates from other interfaces.
 	IsStatementContext()
@@ -378,38 +379,6 @@ func NewStatementContext(parser antlr.Parser, parent antlr.ParserRuleContext, in
 
 func (s *StatementContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *StatementContext) Assignment() IAssignmentContext {
-	var t antlr.RuleContext
-	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IAssignmentContext); ok {
-			t = ctx.(antlr.RuleContext)
-			break
-		}
-	}
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IAssignmentContext)
-}
-
-func (s *StatementContext) ComputationDef() IComputationDefContext {
-	var t antlr.RuleContext
-	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IComputationDefContext); ok {
-			t = ctx.(antlr.RuleContext)
-			break
-		}
-	}
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IComputationDefContext)
-}
-
 func (s *StatementContext) Expr() IExprContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
@@ -428,6 +397,38 @@ func (s *StatementContext) Expr() IExprContext {
 
 func (s *StatementContext) SM() antlr.TerminalNode {
 	return s.GetToken(mindcarbonParserSM, 0)
+}
+
+func (s *StatementContext) ComputationDef() IComputationDefContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IComputationDefContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IComputationDefContext)
+}
+
+func (s *StatementContext) Assignment() IAssignmentContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IAssignmentContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IAssignmentContext)
 }
 
 func (s *StatementContext) GetRuleContext() antlr.RuleContext {
@@ -463,7 +464,7 @@ func (s *StatementContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 func (p *mindcarbonParser) Statement() (localctx IStatementContext) {
 	localctx = NewStatementContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 2, mindcarbonParserRULE_statement)
-	p.SetState(23)
+	p.SetState(27)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -473,30 +474,30 @@ func (p *mindcarbonParser) Statement() (localctx IStatementContext) {
 	case 1:
 		p.EnterOuterAlt(localctx, 1)
 		{
-			p.SetState(18)
-			p.Assignment()
+			p.SetState(22)
+			p.expr(0)
+		}
+		{
+			p.SetState(23)
+			p.Match(mindcarbonParserSM)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
 		}
 
 	case 2:
 		p.EnterOuterAlt(localctx, 2)
 		{
-			p.SetState(19)
+			p.SetState(25)
 			p.ComputationDef()
 		}
 
 	case 3:
 		p.EnterOuterAlt(localctx, 3)
 		{
-			p.SetState(20)
-			p.expr(0)
-		}
-		{
-			p.SetState(21)
-			p.Match(mindcarbonParserSM)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
+			p.SetState(26)
+			p.Assignment()
 		}
 
 	case antlr.ATNInvalidAltNumber:
@@ -533,14 +534,10 @@ type IComputationDefContext interface {
 	COMPUTATION() antlr.TerminalNode
 	LPAREN() antlr.TerminalNode
 	RPAREN() antlr.TerminalNode
-	LCURLY() antlr.TerminalNode
-	Expr() IExprContext
-	RCURLY() antlr.TerminalNode
+	Block() IBlockContext
 	ID() antlr.TerminalNode
 	AllParamDef() []IParamDefContext
 	ParamDef(i int) IParamDefContext
-	AllAssignment() []IAssignmentContext
-	Assignment(i int) IAssignmentContext
 	AllCOMMA() []antlr.TerminalNode
 	COMMA(i int) antlr.TerminalNode
 
@@ -597,14 +594,10 @@ func (s *ComputationDefContext) RPAREN() antlr.TerminalNode {
 	return s.GetToken(mindcarbonParserRPAREN, 0)
 }
 
-func (s *ComputationDefContext) LCURLY() antlr.TerminalNode {
-	return s.GetToken(mindcarbonParserLCURLY, 0)
-}
-
-func (s *ComputationDefContext) Expr() IExprContext {
+func (s *ComputationDefContext) Block() IBlockContext {
 	var t antlr.RuleContext
 	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IExprContext); ok {
+		if _, ok := ctx.(IBlockContext); ok {
 			t = ctx.(antlr.RuleContext)
 			break
 		}
@@ -614,11 +607,7 @@ func (s *ComputationDefContext) Expr() IExprContext {
 		return nil
 	}
 
-	return t.(IExprContext)
-}
-
-func (s *ComputationDefContext) RCURLY() antlr.TerminalNode {
-	return s.GetToken(mindcarbonParserRCURLY, 0)
+	return t.(IBlockContext)
 }
 
 func (s *ComputationDefContext) ID() antlr.TerminalNode {
@@ -666,47 +655,6 @@ func (s *ComputationDefContext) ParamDef(i int) IParamDefContext {
 	return t.(IParamDefContext)
 }
 
-func (s *ComputationDefContext) AllAssignment() []IAssignmentContext {
-	children := s.GetChildren()
-	len := 0
-	for _, ctx := range children {
-		if _, ok := ctx.(IAssignmentContext); ok {
-			len++
-		}
-	}
-
-	tst := make([]IAssignmentContext, len)
-	i := 0
-	for _, ctx := range children {
-		if t, ok := ctx.(IAssignmentContext); ok {
-			tst[i] = t.(IAssignmentContext)
-			i++
-		}
-	}
-
-	return tst
-}
-
-func (s *ComputationDefContext) Assignment(i int) IAssignmentContext {
-	var t antlr.RuleContext
-	j := 0
-	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IAssignmentContext); ok {
-			if j == i {
-				t = ctx.(antlr.RuleContext)
-				break
-			}
-			j++
-		}
-	}
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IAssignmentContext)
-}
-
 func (s *ComputationDefContext) AllCOMMA() []antlr.TerminalNode {
 	return s.GetTokens(mindcarbonParserCOMMA)
 }
@@ -750,11 +698,9 @@ func (p *mindcarbonParser) ComputationDef() (localctx IComputationDefContext) {
 	p.EnterRule(localctx, 4, mindcarbonParserRULE_computationDef)
 	var _la int
 
-	var _alt int
-
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(25)
+		p.SetState(29)
 		p.Match(mindcarbonParserCOMPUTATION)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -762,7 +708,7 @@ func (p *mindcarbonParser) ComputationDef() (localctx IComputationDefContext) {
 		}
 	}
 	{
-		p.SetState(26)
+		p.SetState(30)
 
 		var _m = p.Match(mindcarbonParserID)
 
@@ -773,14 +719,14 @@ func (p *mindcarbonParser) ComputationDef() (localctx IComputationDefContext) {
 		}
 	}
 	{
-		p.SetState(27)
+		p.SetState(31)
 		p.Match(mindcarbonParserLPAREN)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(36)
+	p.SetState(40)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -789,10 +735,10 @@ func (p *mindcarbonParser) ComputationDef() (localctx IComputationDefContext) {
 
 	if _la == mindcarbonParserID {
 		{
-			p.SetState(28)
+			p.SetState(32)
 			p.ParamDef()
 		}
-		p.SetState(33)
+		p.SetState(37)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -801,7 +747,7 @@ func (p *mindcarbonParser) ComputationDef() (localctx IComputationDefContext) {
 
 		for _la == mindcarbonParserCOMMA {
 			{
-				p.SetState(29)
+				p.SetState(33)
 				p.Match(mindcarbonParserCOMMA)
 				if p.HasError() {
 					// Recognition error - abort rule
@@ -809,11 +755,11 @@ func (p *mindcarbonParser) ComputationDef() (localctx IComputationDefContext) {
 				}
 			}
 			{
-				p.SetState(30)
+				p.SetState(34)
 				p.ParamDef()
 			}
 
-			p.SetState(35)
+			p.SetState(39)
 			p.GetErrorHandler().Sync(p)
 			if p.HasError() {
 				goto errorExit
@@ -823,7 +769,7 @@ func (p *mindcarbonParser) ComputationDef() (localctx IComputationDefContext) {
 
 	}
 	{
-		p.SetState(38)
+		p.SetState(42)
 		p.Match(mindcarbonParserRPAREN)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -831,51 +777,8 @@ func (p *mindcarbonParser) ComputationDef() (localctx IComputationDefContext) {
 		}
 	}
 	{
-		p.SetState(39)
-		p.Match(mindcarbonParserLCURLY)
-		if p.HasError() {
-			// Recognition error - abort rule
-			goto errorExit
-		}
-	}
-	p.SetState(43)
-	p.GetErrorHandler().Sync(p)
-	if p.HasError() {
-		goto errorExit
-	}
-	_alt = p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 4, p.GetParserRuleContext())
-	if p.HasError() {
-		goto errorExit
-	}
-	for _alt != 2 && _alt != antlr.ATNInvalidAltNumber {
-		if _alt == 1 {
-			{
-				p.SetState(40)
-				p.Assignment()
-			}
-
-		}
-		p.SetState(45)
-		p.GetErrorHandler().Sync(p)
-		if p.HasError() {
-			goto errorExit
-		}
-		_alt = p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 4, p.GetParserRuleContext())
-		if p.HasError() {
-			goto errorExit
-		}
-	}
-	{
-		p.SetState(46)
-		p.expr(0)
-	}
-	{
-		p.SetState(47)
-		p.Match(mindcarbonParserRCURLY)
-		if p.HasError() {
-			// Recognition error - abort rule
-			goto errorExit
-		}
+		p.SetState(43)
+		p.Block()
 	}
 
 errorExit:
@@ -1031,7 +934,7 @@ func (p *mindcarbonParser) ParamDef() (localctx IParamDefContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(49)
+		p.SetState(45)
 
 		var _m = p.Match(mindcarbonParserID)
 
@@ -1042,7 +945,7 @@ func (p *mindcarbonParser) ParamDef() (localctx IParamDefContext) {
 		}
 	}
 	{
-		p.SetState(50)
+		p.SetState(46)
 		p.Match(mindcarbonParserCOLUMN)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1050,7 +953,7 @@ func (p *mindcarbonParser) ParamDef() (localctx IParamDefContext) {
 		}
 	}
 	{
-		p.SetState(51)
+		p.SetState(47)
 
 		var _m = p.Match(mindcarbonParserID)
 
@@ -1060,7 +963,7 @@ func (p *mindcarbonParser) ParamDef() (localctx IParamDefContext) {
 			goto errorExit
 		}
 	}
-	p.SetState(55)
+	p.SetState(51)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -1069,7 +972,7 @@ func (p *mindcarbonParser) ParamDef() (localctx IParamDefContext) {
 
 	if _la == mindcarbonParserLPAREN {
 		{
-			p.SetState(52)
+			p.SetState(48)
 			p.Match(mindcarbonParserLPAREN)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -1077,7 +980,7 @@ func (p *mindcarbonParser) ParamDef() (localctx IParamDefContext) {
 			}
 		}
 		{
-			p.SetState(53)
+			p.SetState(49)
 
 			var _m = p.Match(mindcarbonParserID)
 
@@ -1088,7 +991,7 @@ func (p *mindcarbonParser) ParamDef() (localctx IParamDefContext) {
 			}
 		}
 		{
-			p.SetState(54)
+			p.SetState(50)
 			p.Match(mindcarbonParserRPAREN)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -1096,6 +999,381 @@ func (p *mindcarbonParser) ParamDef() (localctx IParamDefContext) {
 			}
 		}
 
+	}
+
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
+
+// IBlockContext is an interface to support dynamic dispatch.
+type IBlockContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// Getter signatures
+	LCURLY() antlr.TerminalNode
+	Expr() IExprContext
+	RCURLY() antlr.TerminalNode
+	AllBstat() []IBstatContext
+	Bstat(i int) IBstatContext
+
+	// IsBlockContext differentiates from other interfaces.
+	IsBlockContext()
+}
+
+type BlockContext struct {
+	antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyBlockContext() *BlockContext {
+	var p = new(BlockContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = mindcarbonParserRULE_block
+	return p
+}
+
+func InitEmptyBlockContext(p *BlockContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = mindcarbonParserRULE_block
+}
+
+func (*BlockContext) IsBlockContext() {}
+
+func NewBlockContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *BlockContext {
+	var p = new(BlockContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = mindcarbonParserRULE_block
+
+	return p
+}
+
+func (s *BlockContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *BlockContext) LCURLY() antlr.TerminalNode {
+	return s.GetToken(mindcarbonParserLCURLY, 0)
+}
+
+func (s *BlockContext) Expr() IExprContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IExprContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IExprContext)
+}
+
+func (s *BlockContext) RCURLY() antlr.TerminalNode {
+	return s.GetToken(mindcarbonParserRCURLY, 0)
+}
+
+func (s *BlockContext) AllBstat() []IBstatContext {
+	children := s.GetChildren()
+	len := 0
+	for _, ctx := range children {
+		if _, ok := ctx.(IBstatContext); ok {
+			len++
+		}
+	}
+
+	tst := make([]IBstatContext, len)
+	i := 0
+	for _, ctx := range children {
+		if t, ok := ctx.(IBstatContext); ok {
+			tst[i] = t.(IBstatContext)
+			i++
+		}
+	}
+
+	return tst
+}
+
+func (s *BlockContext) Bstat(i int) IBstatContext {
+	var t antlr.RuleContext
+	j := 0
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IBstatContext); ok {
+			if j == i {
+				t = ctx.(antlr.RuleContext)
+				break
+			}
+			j++
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IBstatContext)
+}
+
+func (s *BlockContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *BlockContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *BlockContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(mindcarbonListener); ok {
+		listenerT.EnterBlock(s)
+	}
+}
+
+func (s *BlockContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(mindcarbonListener); ok {
+		listenerT.ExitBlock(s)
+	}
+}
+
+func (s *BlockContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case mindcarbonVisitor:
+		return t.VisitBlock(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
+func (p *mindcarbonParser) Block() (localctx IBlockContext) {
+	localctx = NewBlockContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 8, mindcarbonParserRULE_block)
+	var _alt int
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(53)
+		p.Match(mindcarbonParserLCURLY)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+	p.SetState(57)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
+	_alt = p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 5, p.GetParserRuleContext())
+	if p.HasError() {
+		goto errorExit
+	}
+	for _alt != 2 && _alt != antlr.ATNInvalidAltNumber {
+		if _alt == 1 {
+			{
+				p.SetState(54)
+				p.Bstat()
+			}
+
+		}
+		p.SetState(59)
+		p.GetErrorHandler().Sync(p)
+		if p.HasError() {
+			goto errorExit
+		}
+		_alt = p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 5, p.GetParserRuleContext())
+		if p.HasError() {
+			goto errorExit
+		}
+	}
+	{
+		p.SetState(60)
+		p.expr(0)
+	}
+	{
+		p.SetState(61)
+		p.Match(mindcarbonParserRCURLY)
+		if p.HasError() {
+			// Recognition error - abort rule
+			goto errorExit
+		}
+	}
+
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
+
+// IBstatContext is an interface to support dynamic dispatch.
+type IBstatContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// Getter signatures
+	Assignment() IAssignmentContext
+	Expr() IExprContext
+	SM() antlr.TerminalNode
+
+	// IsBstatContext differentiates from other interfaces.
+	IsBstatContext()
+}
+
+type BstatContext struct {
+	antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyBstatContext() *BstatContext {
+	var p = new(BstatContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = mindcarbonParserRULE_bstat
+	return p
+}
+
+func InitEmptyBstatContext(p *BstatContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = mindcarbonParserRULE_bstat
+}
+
+func (*BstatContext) IsBstatContext() {}
+
+func NewBstatContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *BstatContext {
+	var p = new(BstatContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = mindcarbonParserRULE_bstat
+
+	return p
+}
+
+func (s *BstatContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *BstatContext) Assignment() IAssignmentContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IAssignmentContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IAssignmentContext)
+}
+
+func (s *BstatContext) Expr() IExprContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IExprContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IExprContext)
+}
+
+func (s *BstatContext) SM() antlr.TerminalNode {
+	return s.GetToken(mindcarbonParserSM, 0)
+}
+
+func (s *BstatContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *BstatContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *BstatContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(mindcarbonListener); ok {
+		listenerT.EnterBstat(s)
+	}
+}
+
+func (s *BstatContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(mindcarbonListener); ok {
+		listenerT.ExitBstat(s)
+	}
+}
+
+func (s *BstatContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case mindcarbonVisitor:
+		return t.VisitBstat(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
+func (p *mindcarbonParser) Bstat() (localctx IBstatContext) {
+	localctx = NewBstatContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 10, mindcarbonParserRULE_bstat)
+	p.SetState(67)
+	p.GetErrorHandler().Sync(p)
+	if p.HasError() {
+		goto errorExit
+	}
+
+	switch p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 6, p.GetParserRuleContext()) {
+	case 1:
+		p.EnterOuterAlt(localctx, 1)
+		{
+			p.SetState(63)
+			p.Assignment()
+		}
+
+	case 2:
+		p.EnterOuterAlt(localctx, 2)
+		{
+			p.SetState(64)
+			p.expr(0)
+		}
+		{
+			p.SetState(65)
+			p.Match(mindcarbonParserSM)
+			if p.HasError() {
+				// Recognition error - abort rule
+				goto errorExit
+			}
+		}
+
+	case antlr.ATNInvalidAltNumber:
+		goto errorExit
 	}
 
 errorExit:
@@ -1220,10 +1498,10 @@ func (s *AssignmentContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 func (p *mindcarbonParser) Assignment() (localctx IAssignmentContext) {
 	localctx = NewAssignmentContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 8, mindcarbonParserRULE_assignment)
+	p.EnterRule(localctx, 12, mindcarbonParserRULE_assignment)
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(57)
+		p.SetState(69)
 		p.Match(mindcarbonParserID)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1231,7 +1509,7 @@ func (p *mindcarbonParser) Assignment() (localctx IAssignmentContext) {
 		}
 	}
 	{
-		p.SetState(58)
+		p.SetState(70)
 		p.Match(mindcarbonParserEQUALS)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1239,11 +1517,11 @@ func (p *mindcarbonParser) Assignment() (localctx IAssignmentContext) {
 		}
 	}
 	{
-		p.SetState(59)
+		p.SetState(71)
 		p.expr(0)
 	}
 	{
-		p.SetState(60)
+		p.SetState(72)
 		p.Match(mindcarbonParserSM)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1318,12 +1596,12 @@ func (s *ExprContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) s
 	return antlr.TreesStringTree(s, ruleNames, recog)
 }
 
-type DivisionContext struct {
+type IdResolutionContext struct {
 	ExprContext
 }
 
-func NewDivisionContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *DivisionContext {
-	var p = new(DivisionContext)
+func NewIdResolutionContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *IdResolutionContext {
+	var p = new(IdResolutionContext)
 
 	InitEmptyExprContext(&p.ExprContext)
 	p.parser = parser
@@ -1332,127 +1610,43 @@ func NewDivisionContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *Divis
 	return p
 }
 
-func (s *DivisionContext) GetRuleContext() antlr.RuleContext {
+func (s *IdResolutionContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *DivisionContext) AllExpr() []IExprContext {
-	children := s.GetChildren()
-	len := 0
-	for _, ctx := range children {
-		if _, ok := ctx.(IExprContext); ok {
-			len++
-		}
-	}
-
-	tst := make([]IExprContext, len)
-	i := 0
-	for _, ctx := range children {
-		if t, ok := ctx.(IExprContext); ok {
-			tst[i] = t.(IExprContext)
-			i++
-		}
-	}
-
-	return tst
-}
-
-func (s *DivisionContext) Expr(i int) IExprContext {
-	var t antlr.RuleContext
-	j := 0
-	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IExprContext); ok {
-			if j == i {
-				t = ctx.(antlr.RuleContext)
-				break
-			}
-			j++
-		}
-	}
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IExprContext)
-}
-
-func (s *DivisionContext) DIV() antlr.TerminalNode {
-	return s.GetToken(mindcarbonParserDIV, 0)
-}
-
-func (s *DivisionContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.EnterDivision(s)
-	}
-}
-
-func (s *DivisionContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.ExitDivision(s)
-	}
-}
-
-func (s *DivisionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case mindcarbonVisitor:
-		return t.VisitDivision(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
-type IdentifierContext struct {
-	ExprContext
-}
-
-func NewIdentifierContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *IdentifierContext {
-	var p = new(IdentifierContext)
-
-	InitEmptyExprContext(&p.ExprContext)
-	p.parser = parser
-	p.CopyAll(ctx.(*ExprContext))
-
-	return p
-}
-
-func (s *IdentifierContext) GetRuleContext() antlr.RuleContext {
-	return s
-}
-
-func (s *IdentifierContext) ID() antlr.TerminalNode {
+func (s *IdResolutionContext) ID() antlr.TerminalNode {
 	return s.GetToken(mindcarbonParserID, 0)
 }
 
-func (s *IdentifierContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *IdResolutionContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.EnterIdentifier(s)
+		listenerT.EnterIdResolution(s)
 	}
 }
 
-func (s *IdentifierContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *IdResolutionContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.ExitIdentifier(s)
+		listenerT.ExitIdResolution(s)
 	}
 }
 
-func (s *IdentifierContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+func (s *IdResolutionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case mindcarbonVisitor:
-		return t.VisitIdentifier(s)
+		return t.VisitIdResolution(s)
 
 	default:
 		return t.VisitChildren(s)
 	}
 }
 
-type ExponentiationContext struct {
+type MulOrDivOpContext struct {
 	ExprContext
+	op antlr.Token
 }
 
-func NewExponentiationContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *ExponentiationContext {
-	var p = new(ExponentiationContext)
+func NewMulOrDivOpContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *MulOrDivOpContext {
+	var p = new(MulOrDivOpContext)
 
 	InitEmptyExprContext(&p.ExprContext)
 	p.parser = parser
@@ -1461,11 +1655,15 @@ func NewExponentiationContext(parser antlr.Parser, ctx antlr.ParserRuleContext) 
 	return p
 }
 
-func (s *ExponentiationContext) GetRuleContext() antlr.RuleContext {
+func (s *MulOrDivOpContext) GetOp() antlr.Token { return s.op }
+
+func (s *MulOrDivOpContext) SetOp(v antlr.Token) { s.op = v }
+
+func (s *MulOrDivOpContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *ExponentiationContext) AllExpr() []IExprContext {
+func (s *MulOrDivOpContext) AllExpr() []IExprContext {
 	children := s.GetChildren()
 	len := 0
 	for _, ctx := range children {
@@ -1486,7 +1684,7 @@ func (s *ExponentiationContext) AllExpr() []IExprContext {
 	return tst
 }
 
-func (s *ExponentiationContext) Expr(i int) IExprContext {
+func (s *MulOrDivOpContext) Expr(i int) IExprContext {
 	var t antlr.RuleContext
 	j := 0
 	for _, ctx := range s.GetChildren() {
@@ -1506,74 +1704,30 @@ func (s *ExponentiationContext) Expr(i int) IExprContext {
 	return t.(IExprContext)
 }
 
-func (s *ExponentiationContext) EXP() antlr.TerminalNode {
-	return s.GetToken(mindcarbonParserEXP, 0)
+func (s *MulOrDivOpContext) MUL() antlr.TerminalNode {
+	return s.GetToken(mindcarbonParserMUL, 0)
 }
 
-func (s *ExponentiationContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *MulOrDivOpContext) DIV() antlr.TerminalNode {
+	return s.GetToken(mindcarbonParserDIV, 0)
+}
+
+func (s *MulOrDivOpContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.EnterExponentiation(s)
+		listenerT.EnterMulOrDivOp(s)
 	}
 }
 
-func (s *ExponentiationContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *MulOrDivOpContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.ExitExponentiation(s)
+		listenerT.ExitMulOrDivOp(s)
 	}
 }
 
-func (s *ExponentiationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+func (s *MulOrDivOpContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case mindcarbonVisitor:
-		return t.VisitExponentiation(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
-type IntConstantContext struct {
-	ExprContext
-}
-
-func NewIntConstantContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *IntConstantContext {
-	var p = new(IntConstantContext)
-
-	InitEmptyExprContext(&p.ExprContext)
-	p.parser = parser
-	p.CopyAll(ctx.(*ExprContext))
-
-	return p
-}
-
-func (s *IntConstantContext) GetRuleContext() antlr.RuleContext {
-	return s
-}
-
-func (s *IntConstantContext) INT() antlr.TerminalNode {
-	return s.GetToken(mindcarbonParserINT, 0)
-}
-
-func (s *IntConstantContext) MIN() antlr.TerminalNode {
-	return s.GetToken(mindcarbonParserMIN, 0)
-}
-
-func (s *IntConstantContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.EnterIntConstant(s)
-	}
-}
-
-func (s *IntConstantContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.ExitIntConstant(s)
-	}
-}
-
-func (s *IntConstantContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case mindcarbonVisitor:
-		return t.VisitIntConstant(s)
+		return t.VisitMulOrDivOp(s)
 
 	default:
 		return t.VisitChildren(s)
@@ -1626,7 +1780,8 @@ func (s *StringConstantContext) Accept(visitor antlr.ParseTreeVisitor) interface
 
 type FunctionCallContext struct {
 	ExprContext
-	fnName antlr.Token
+	fnName  antlr.Token
+	prmName antlr.Token
 }
 
 func NewFunctionCallContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *FunctionCallContext {
@@ -1641,7 +1796,11 @@ func NewFunctionCallContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *F
 
 func (s *FunctionCallContext) GetFnName() antlr.Token { return s.fnName }
 
+func (s *FunctionCallContext) GetPrmName() antlr.Token { return s.prmName }
+
 func (s *FunctionCallContext) SetFnName(v antlr.Token) { s.fnName = v }
+
+func (s *FunctionCallContext) SetPrmName(v antlr.Token) { s.prmName = v }
 
 func (s *FunctionCallContext) GetRuleContext() antlr.RuleContext {
 	return s
@@ -1655,8 +1814,20 @@ func (s *FunctionCallContext) RPAREN() antlr.TerminalNode {
 	return s.GetToken(mindcarbonParserRPAREN, 0)
 }
 
-func (s *FunctionCallContext) ID() antlr.TerminalNode {
-	return s.GetToken(mindcarbonParserID, 0)
+func (s *FunctionCallContext) AllID() []antlr.TerminalNode {
+	return s.GetTokens(mindcarbonParserID)
+}
+
+func (s *FunctionCallContext) ID(i int) antlr.TerminalNode {
+	return s.GetToken(mindcarbonParserID, i)
+}
+
+func (s *FunctionCallContext) AllCOLUMN() []antlr.TerminalNode {
+	return s.GetTokens(mindcarbonParserCOLUMN)
+}
+
+func (s *FunctionCallContext) COLUMN(i int) antlr.TerminalNode {
+	return s.GetToken(mindcarbonParserCOLUMN, i)
 }
 
 func (s *FunctionCallContext) AllExpr() []IExprContext {
@@ -1730,12 +1901,13 @@ func (s *FunctionCallContext) Accept(visitor antlr.ParseTreeVisitor) interface{}
 	}
 }
 
-type FloatConstantContext struct {
+type AddOrMinOpContext struct {
 	ExprContext
+	op antlr.Token
 }
 
-func NewFloatConstantContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *FloatConstantContext {
-	var p = new(FloatConstantContext)
+func NewAddOrMinOpContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *AddOrMinOpContext {
+	var p = new(AddOrMinOpContext)
 
 	InitEmptyExprContext(&p.ExprContext)
 	p.parser = parser
@@ -1744,59 +1916,15 @@ func NewFloatConstantContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *
 	return p
 }
 
-func (s *FloatConstantContext) GetRuleContext() antlr.RuleContext {
+func (s *AddOrMinOpContext) GetOp() antlr.Token { return s.op }
+
+func (s *AddOrMinOpContext) SetOp(v antlr.Token) { s.op = v }
+
+func (s *AddOrMinOpContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *FloatConstantContext) FLOAT() antlr.TerminalNode {
-	return s.GetToken(mindcarbonParserFLOAT, 0)
-}
-
-func (s *FloatConstantContext) MIN() antlr.TerminalNode {
-	return s.GetToken(mindcarbonParserMIN, 0)
-}
-
-func (s *FloatConstantContext) EnterRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.EnterFloatConstant(s)
-	}
-}
-
-func (s *FloatConstantContext) ExitRule(listener antlr.ParseTreeListener) {
-	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.ExitFloatConstant(s)
-	}
-}
-
-func (s *FloatConstantContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case mindcarbonVisitor:
-		return t.VisitFloatConstant(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
-type SubtractionContext struct {
-	ExprContext
-}
-
-func NewSubtractionContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *SubtractionContext {
-	var p = new(SubtractionContext)
-
-	InitEmptyExprContext(&p.ExprContext)
-	p.parser = parser
-	p.CopyAll(ctx.(*ExprContext))
-
-	return p
-}
-
-func (s *SubtractionContext) GetRuleContext() antlr.RuleContext {
-	return s
-}
-
-func (s *SubtractionContext) AllExpr() []IExprContext {
+func (s *AddOrMinOpContext) AllExpr() []IExprContext {
 	children := s.GetChildren()
 	len := 0
 	for _, ctx := range children {
@@ -1817,7 +1945,7 @@ func (s *SubtractionContext) AllExpr() []IExprContext {
 	return tst
 }
 
-func (s *SubtractionContext) Expr(i int) IExprContext {
+func (s *AddOrMinOpContext) Expr(i int) IExprContext {
 	var t antlr.RuleContext
 	j := 0
 	for _, ctx := range s.GetChildren() {
@@ -1837,38 +1965,42 @@ func (s *SubtractionContext) Expr(i int) IExprContext {
 	return t.(IExprContext)
 }
 
-func (s *SubtractionContext) MIN() antlr.TerminalNode {
+func (s *AddOrMinOpContext) ADD() antlr.TerminalNode {
+	return s.GetToken(mindcarbonParserADD, 0)
+}
+
+func (s *AddOrMinOpContext) MIN() antlr.TerminalNode {
 	return s.GetToken(mindcarbonParserMIN, 0)
 }
 
-func (s *SubtractionContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *AddOrMinOpContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.EnterSubtraction(s)
+		listenerT.EnterAddOrMinOp(s)
 	}
 }
 
-func (s *SubtractionContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *AddOrMinOpContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.ExitSubtraction(s)
+		listenerT.ExitAddOrMinOp(s)
 	}
 }
 
-func (s *SubtractionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+func (s *AddOrMinOpContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case mindcarbonVisitor:
-		return t.VisitSubtraction(s)
+		return t.VisitAddOrMinOp(s)
 
 	default:
 		return t.VisitChildren(s)
 	}
 }
 
-type MultiplicationContext struct {
+type ExpOpContext struct {
 	ExprContext
 }
 
-func NewMultiplicationContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *MultiplicationContext {
-	var p = new(MultiplicationContext)
+func NewExpOpContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *ExpOpContext {
+	var p = new(ExpOpContext)
 
 	InitEmptyExprContext(&p.ExprContext)
 	p.parser = parser
@@ -1877,11 +2009,11 @@ func NewMultiplicationContext(parser antlr.Parser, ctx antlr.ParserRuleContext) 
 	return p
 }
 
-func (s *MultiplicationContext) GetRuleContext() antlr.RuleContext {
+func (s *ExpOpContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *MultiplicationContext) AllExpr() []IExprContext {
+func (s *ExpOpContext) AllExpr() []IExprContext {
 	children := s.GetChildren()
 	len := 0
 	for _, ctx := range children {
@@ -1902,7 +2034,7 @@ func (s *MultiplicationContext) AllExpr() []IExprContext {
 	return tst
 }
 
-func (s *MultiplicationContext) Expr(i int) IExprContext {
+func (s *ExpOpContext) Expr(i int) IExprContext {
 	var t antlr.RuleContext
 	j := 0
 	for _, ctx := range s.GetChildren() {
@@ -1922,26 +2054,26 @@ func (s *MultiplicationContext) Expr(i int) IExprContext {
 	return t.(IExprContext)
 }
 
-func (s *MultiplicationContext) MUL() antlr.TerminalNode {
-	return s.GetToken(mindcarbonParserMUL, 0)
+func (s *ExpOpContext) EXP() antlr.TerminalNode {
+	return s.GetToken(mindcarbonParserEXP, 0)
 }
 
-func (s *MultiplicationContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *ExpOpContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.EnterMultiplication(s)
+		listenerT.EnterExpOp(s)
 	}
 }
 
-func (s *MultiplicationContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *ExpOpContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.ExitMultiplication(s)
+		listenerT.ExitExpOp(s)
 	}
 }
 
-func (s *MultiplicationContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+func (s *ExpOpContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case mindcarbonVisitor:
-		return t.VisitMultiplication(s)
+		return t.VisitExpOp(s)
 
 	default:
 		return t.VisitChildren(s)
@@ -2012,12 +2144,12 @@ func (s *GroupingContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	}
 }
 
-type AdditionContext struct {
+type NumberConstantContext struct {
 	ExprContext
 }
 
-func NewAdditionContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *AdditionContext {
-	var p = new(AdditionContext)
+func NewNumberConstantContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *NumberConstantContext {
+	var p = new(NumberConstantContext)
 
 	InitEmptyExprContext(&p.ExprContext)
 	p.parser = parser
@@ -2026,71 +2158,38 @@ func NewAdditionContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *Addit
 	return p
 }
 
-func (s *AdditionContext) GetRuleContext() antlr.RuleContext {
+func (s *NumberConstantContext) GetRuleContext() antlr.RuleContext {
 	return s
 }
 
-func (s *AdditionContext) AllExpr() []IExprContext {
-	children := s.GetChildren()
-	len := 0
-	for _, ctx := range children {
-		if _, ok := ctx.(IExprContext); ok {
-			len++
-		}
-	}
-
-	tst := make([]IExprContext, len)
-	i := 0
-	for _, ctx := range children {
-		if t, ok := ctx.(IExprContext); ok {
-			tst[i] = t.(IExprContext)
-			i++
-		}
-	}
-
-	return tst
+func (s *NumberConstantContext) FLOAT() antlr.TerminalNode {
+	return s.GetToken(mindcarbonParserFLOAT, 0)
 }
 
-func (s *AdditionContext) Expr(i int) IExprContext {
-	var t antlr.RuleContext
-	j := 0
-	for _, ctx := range s.GetChildren() {
-		if _, ok := ctx.(IExprContext); ok {
-			if j == i {
-				t = ctx.(antlr.RuleContext)
-				break
-			}
-			j++
-		}
-	}
-
-	if t == nil {
-		return nil
-	}
-
-	return t.(IExprContext)
+func (s *NumberConstantContext) INT() antlr.TerminalNode {
+	return s.GetToken(mindcarbonParserINT, 0)
 }
 
-func (s *AdditionContext) ADD() antlr.TerminalNode {
-	return s.GetToken(mindcarbonParserADD, 0)
+func (s *NumberConstantContext) MIN() antlr.TerminalNode {
+	return s.GetToken(mindcarbonParserMIN, 0)
 }
 
-func (s *AdditionContext) EnterRule(listener antlr.ParseTreeListener) {
+func (s *NumberConstantContext) EnterRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.EnterAddition(s)
+		listenerT.EnterNumberConstant(s)
 	}
 }
 
-func (s *AdditionContext) ExitRule(listener antlr.ParseTreeListener) {
+func (s *NumberConstantContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(mindcarbonListener); ok {
-		listenerT.ExitAddition(s)
+		listenerT.ExitNumberConstant(s)
 	}
 }
 
-func (s *AdditionContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+func (s *NumberConstantContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 	switch t := visitor.(type) {
 	case mindcarbonVisitor:
-		return t.VisitAddition(s)
+		return t.VisitNumberConstant(s)
 
 	default:
 		return t.VisitChildren(s)
@@ -2108,14 +2207,14 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 	localctx = NewExprContext(p, p.GetParserRuleContext(), _parentState)
 	var _prevctx IExprContext = localctx
 	var _ antlr.ParserRuleContext = _prevctx // TODO: To prevent unused variable warning.
-	_startState := 10
-	p.EnterRecursionRule(localctx, 10, mindcarbonParserRULE_expr, _p)
+	_startState := 14
+	p.EnterRecursionRule(localctx, 14, mindcarbonParserRULE_expr, _p)
 	var _la int
 
 	var _alt int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(90)
+	p.SetState(102)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -2128,7 +2227,7 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 		_prevctx = localctx
 
 		{
-			p.SetState(63)
+			p.SetState(75)
 			p.Match(mindcarbonParserLPAREN)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -2136,11 +2235,11 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 			}
 		}
 		{
-			p.SetState(64)
+			p.SetState(76)
 			p.expr(0)
 		}
 		{
-			p.SetState(65)
+			p.SetState(77)
 			p.Match(mindcarbonParserRPAREN)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -2153,7 +2252,7 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 		p.SetParserRuleContext(localctx)
 		_prevctx = localctx
 		{
-			p.SetState(67)
+			p.SetState(79)
 
 			var _m = p.Match(mindcarbonParserID)
 
@@ -2164,26 +2263,45 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 			}
 		}
 		{
-			p.SetState(68)
+			p.SetState(80)
 			p.Match(mindcarbonParserLPAREN)
 			if p.HasError() {
 				// Recognition error - abort rule
 				goto errorExit
 			}
 		}
-		p.SetState(77)
+		p.SetState(93)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
 		}
 		_la = p.GetTokenStream().LA(1)
 
-		if (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&271116) != 0 {
+		if _la == mindcarbonParserID {
 			{
-				p.SetState(69)
+				p.SetState(81)
+
+				var _m = p.Match(mindcarbonParserID)
+
+				localctx.(*FunctionCallContext).prmName = _m
+				if p.HasError() {
+					// Recognition error - abort rule
+					goto errorExit
+				}
+			}
+			{
+				p.SetState(82)
+				p.Match(mindcarbonParserCOLUMN)
+				if p.HasError() {
+					// Recognition error - abort rule
+					goto errorExit
+				}
+			}
+			{
+				p.SetState(83)
 				p.expr(0)
 			}
-			p.SetState(74)
+			p.SetState(90)
 			p.GetErrorHandler().Sync(p)
 			if p.HasError() {
 				goto errorExit
@@ -2192,7 +2310,7 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 
 			for _la == mindcarbonParserCOMMA {
 				{
-					p.SetState(70)
+					p.SetState(84)
 					p.Match(mindcarbonParserCOMMA)
 					if p.HasError() {
 						// Recognition error - abort rule
@@ -2200,11 +2318,30 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 					}
 				}
 				{
-					p.SetState(71)
+					p.SetState(85)
+
+					var _m = p.Match(mindcarbonParserID)
+
+					localctx.(*FunctionCallContext).prmName = _m
+					if p.HasError() {
+						// Recognition error - abort rule
+						goto errorExit
+					}
+				}
+				{
+					p.SetState(86)
+					p.Match(mindcarbonParserCOLUMN)
+					if p.HasError() {
+						// Recognition error - abort rule
+						goto errorExit
+					}
+				}
+				{
+					p.SetState(87)
 					p.expr(0)
 				}
 
-				p.SetState(76)
+				p.SetState(92)
 				p.GetErrorHandler().Sync(p)
 				if p.HasError() {
 					goto errorExit
@@ -2214,7 +2351,7 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 
 		}
 		{
-			p.SetState(79)
+			p.SetState(95)
 			p.Match(mindcarbonParserRPAREN)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -2223,11 +2360,11 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 		}
 
 	case 3:
-		localctx = NewIdentifierContext(p, localctx)
+		localctx = NewIdResolutionContext(p, localctx)
 		p.SetParserRuleContext(localctx)
 		_prevctx = localctx
 		{
-			p.SetState(80)
+			p.SetState(96)
 			p.Match(mindcarbonParserID)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -2236,10 +2373,10 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 		}
 
 	case 4:
-		localctx = NewFloatConstantContext(p, localctx)
+		localctx = NewNumberConstantContext(p, localctx)
 		p.SetParserRuleContext(localctx)
 		_prevctx = localctx
-		p.SetState(82)
+		p.SetState(98)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -2248,7 +2385,7 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 
 		if _la == mindcarbonParserMIN {
 			{
-				p.SetState(81)
+				p.SetState(97)
 				p.Match(mindcarbonParserMIN)
 				if p.HasError() {
 					// Recognition error - abort rule
@@ -2258,51 +2395,23 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 
 		}
 		{
-			p.SetState(84)
-			p.Match(mindcarbonParserFLOAT)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
+			p.SetState(100)
+			_la = p.GetTokenStream().LA(1)
+
+			if !(_la == mindcarbonParserINT || _la == mindcarbonParserFLOAT) {
+				p.GetErrorHandler().RecoverInline(p)
+			} else {
+				p.GetErrorHandler().ReportMatch(p)
+				p.Consume()
 			}
 		}
 
 	case 5:
-		localctx = NewIntConstantContext(p, localctx)
-		p.SetParserRuleContext(localctx)
-		_prevctx = localctx
-		p.SetState(86)
-		p.GetErrorHandler().Sync(p)
-		if p.HasError() {
-			goto errorExit
-		}
-		_la = p.GetTokenStream().LA(1)
-
-		if _la == mindcarbonParserMIN {
-			{
-				p.SetState(85)
-				p.Match(mindcarbonParserMIN)
-				if p.HasError() {
-					// Recognition error - abort rule
-					goto errorExit
-				}
-			}
-
-		}
-		{
-			p.SetState(88)
-			p.Match(mindcarbonParserINT)
-			if p.HasError() {
-				// Recognition error - abort rule
-				goto errorExit
-			}
-		}
-
-	case 6:
 		localctx = NewStringConstantContext(p, localctx)
 		p.SetParserRuleContext(localctx)
 		_prevctx = localctx
 		{
-			p.SetState(89)
+			p.SetState(101)
 			p.Match(mindcarbonParserQUOTED_STRING)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -2314,7 +2423,7 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 		goto errorExit
 	}
 	p.GetParserRuleContext().SetStop(p.GetTokenStream().LT(-1))
-	p.SetState(109)
+	p.SetState(115)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -2329,7 +2438,7 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 				p.TriggerExitRuleEvent()
 			}
 			_prevctx = localctx
-			p.SetState(107)
+			p.SetState(113)
 			p.GetErrorHandler().Sync(p)
 			if p.HasError() {
 				goto errorExit
@@ -2337,16 +2446,16 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 
 			switch p.GetInterpreter().AdaptivePredict(p.BaseParser, p.GetTokenStream(), 11, p.GetParserRuleContext()) {
 			case 1:
-				localctx = NewExponentiationContext(p, NewExprContext(p, _parentctx, _parentState))
+				localctx = NewExpOpContext(p, NewExprContext(p, _parentctx, _parentState))
 				p.PushNewRecursionContext(localctx, _startState, mindcarbonParserRULE_expr)
-				p.SetState(92)
+				p.SetState(104)
 
-				if !(p.Precpred(p.GetParserRuleContext(), 10)) {
-					p.SetError(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 10)", ""))
+				if !(p.Precpred(p.GetParserRuleContext(), 7)) {
+					p.SetError(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 7)", ""))
 					goto errorExit
 				}
 				{
-					p.SetState(93)
+					p.SetState(105)
 					p.Match(mindcarbonParserEXP)
 					if p.HasError() {
 						// Recognition error - abort rule
@@ -2354,96 +2463,72 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 					}
 				}
 				{
-					p.SetState(94)
-					p.expr(11)
-				}
-
-			case 2:
-				localctx = NewDivisionContext(p, NewExprContext(p, _parentctx, _parentState))
-				p.PushNewRecursionContext(localctx, _startState, mindcarbonParserRULE_expr)
-				p.SetState(95)
-
-				if !(p.Precpred(p.GetParserRuleContext(), 9)) {
-					p.SetError(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 9)", ""))
-					goto errorExit
-				}
-				{
-					p.SetState(96)
-					p.Match(mindcarbonParserDIV)
-					if p.HasError() {
-						// Recognition error - abort rule
-						goto errorExit
-					}
-				}
-				{
-					p.SetState(97)
-					p.expr(10)
-				}
-
-			case 3:
-				localctx = NewMultiplicationContext(p, NewExprContext(p, _parentctx, _parentState))
-				p.PushNewRecursionContext(localctx, _startState, mindcarbonParserRULE_expr)
-				p.SetState(98)
-
-				if !(p.Precpred(p.GetParserRuleContext(), 8)) {
-					p.SetError(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 8)", ""))
-					goto errorExit
-				}
-				{
-					p.SetState(99)
-					p.Match(mindcarbonParserMUL)
-					if p.HasError() {
-						// Recognition error - abort rule
-						goto errorExit
-					}
-				}
-				{
-					p.SetState(100)
-					p.expr(9)
-				}
-
-			case 4:
-				localctx = NewAdditionContext(p, NewExprContext(p, _parentctx, _parentState))
-				p.PushNewRecursionContext(localctx, _startState, mindcarbonParserRULE_expr)
-				p.SetState(101)
-
-				if !(p.Precpred(p.GetParserRuleContext(), 7)) {
-					p.SetError(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 7)", ""))
-					goto errorExit
-				}
-				{
-					p.SetState(102)
-					p.Match(mindcarbonParserADD)
-					if p.HasError() {
-						// Recognition error - abort rule
-						goto errorExit
-					}
-				}
-				{
-					p.SetState(103)
+					p.SetState(106)
 					p.expr(8)
 				}
 
-			case 5:
-				localctx = NewSubtractionContext(p, NewExprContext(p, _parentctx, _parentState))
+			case 2:
+				localctx = NewMulOrDivOpContext(p, NewExprContext(p, _parentctx, _parentState))
 				p.PushNewRecursionContext(localctx, _startState, mindcarbonParserRULE_expr)
-				p.SetState(104)
+				p.SetState(107)
 
 				if !(p.Precpred(p.GetParserRuleContext(), 6)) {
 					p.SetError(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 6)", ""))
 					goto errorExit
 				}
 				{
-					p.SetState(105)
-					p.Match(mindcarbonParserMIN)
-					if p.HasError() {
-						// Recognition error - abort rule
-						goto errorExit
+					p.SetState(108)
+
+					var _lt = p.GetTokenStream().LT(1)
+
+					localctx.(*MulOrDivOpContext).op = _lt
+
+					_la = p.GetTokenStream().LA(1)
+
+					if !(_la == mindcarbonParserDIV || _la == mindcarbonParserMUL) {
+						var _ri = p.GetErrorHandler().RecoverInline(p)
+
+						localctx.(*MulOrDivOpContext).op = _ri
+					} else {
+						p.GetErrorHandler().ReportMatch(p)
+						p.Consume()
 					}
 				}
 				{
-					p.SetState(106)
+					p.SetState(109)
 					p.expr(7)
+				}
+
+			case 3:
+				localctx = NewAddOrMinOpContext(p, NewExprContext(p, _parentctx, _parentState))
+				p.PushNewRecursionContext(localctx, _startState, mindcarbonParserRULE_expr)
+				p.SetState(110)
+
+				if !(p.Precpred(p.GetParserRuleContext(), 5)) {
+					p.SetError(antlr.NewFailedPredicateException(p, "p.Precpred(p.GetParserRuleContext(), 5)", ""))
+					goto errorExit
+				}
+				{
+					p.SetState(111)
+
+					var _lt = p.GetTokenStream().LT(1)
+
+					localctx.(*AddOrMinOpContext).op = _lt
+
+					_la = p.GetTokenStream().LA(1)
+
+					if !(_la == mindcarbonParserADD || _la == mindcarbonParserMIN) {
+						var _ri = p.GetErrorHandler().RecoverInline(p)
+
+						localctx.(*AddOrMinOpContext).op = _ri
+					} else {
+						p.GetErrorHandler().ReportMatch(p)
+						p.Consume()
+					}
+				}
+				{
+					p.SetState(112)
+					p.expr(6)
 				}
 
 			case antlr.ATNInvalidAltNumber:
@@ -2451,7 +2536,7 @@ func (p *mindcarbonParser) expr(_p int) (localctx IExprContext) {
 			}
 
 		}
-		p.SetState(111)
+		p.SetState(117)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -2477,7 +2562,7 @@ errorExit:
 
 func (p *mindcarbonParser) Sempred(localctx antlr.RuleContext, ruleIndex, predIndex int) bool {
 	switch ruleIndex {
-	case 5:
+	case 7:
 		var t *ExprContext = nil
 		if localctx != nil {
 			t = localctx.(*ExprContext)
@@ -2492,19 +2577,13 @@ func (p *mindcarbonParser) Sempred(localctx antlr.RuleContext, ruleIndex, predIn
 func (p *mindcarbonParser) Expr_Sempred(localctx antlr.RuleContext, predIndex int) bool {
 	switch predIndex {
 	case 0:
-		return p.Precpred(p.GetParserRuleContext(), 10)
-
-	case 1:
-		return p.Precpred(p.GetParserRuleContext(), 9)
-
-	case 2:
-		return p.Precpred(p.GetParserRuleContext(), 8)
-
-	case 3:
 		return p.Precpred(p.GetParserRuleContext(), 7)
 
-	case 4:
+	case 1:
 		return p.Precpred(p.GetParserRuleContext(), 6)
+
+	case 2:
+		return p.Precpred(p.GetParserRuleContext(), 5)
 
 	default:
 		panic("No predicate with index: " + fmt.Sprint(predIndex))

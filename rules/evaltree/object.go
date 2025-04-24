@@ -3,10 +3,11 @@ package evaltree
 import "fmt"
 
 const (
-	NULLTYPE   = "null"
-	NUMBERTYPE = "number"
-	STRINGTYPE = "string"
-	ERRORTYPE  = "error"
+	NULLTYPE    = "null"
+	NUMBERTYPE  = "number"
+	STRINGTYPE  = "string"
+	ERRORTYPE   = "error"
+	FN_DEF_TYPE = "functionDefinition"
 )
 
 type ObjectType string
@@ -82,7 +83,7 @@ func (e ErrorObject) Type() ObjectType {
 }
 
 func (e ErrorObject) Value() interface{} {
-	return nil
+	return e.Message
 }
 
 func (e ErrorObject) Inspect() string {
@@ -91,4 +92,26 @@ func (e ErrorObject) Inspect() string {
 
 func NewError(format string, a ...interface{}) *ErrorObject {
 	return &ErrorObject{Message: fmt.Sprintf(format, a...)}
+}
+
+type FunctionDefinitionObject struct {
+	Name       string
+	Parameters []string
+	Body       Evaluator
+}
+
+func (f FunctionDefinitionObject) Type() ObjectType {
+	return FN_DEF_TYPE
+}
+
+func (f FunctionDefinitionObject) Value() interface{} {
+	return nil
+}
+
+func (f FunctionDefinitionObject) Inspect() string {
+	return fmt.Sprintf("FunctionDefinition {%s}", f.Name)
+}
+
+func NewFunctionDefinitionObject(name string, parameters []string, body Evaluator) *FunctionDefinitionObject {
+	return &FunctionDefinitionObject{Name: name, Parameters: parameters, Body: body}
 }

@@ -20,20 +20,20 @@ type mindcarbonListener interface {
 	// EnterParamDef is called when entering the paramDef production.
 	EnterParamDef(c *ParamDefContext)
 
+	// EnterBlock is called when entering the block production.
+	EnterBlock(c *BlockContext)
+
+	// EnterBstat is called when entering the bstat production.
+	EnterBstat(c *BstatContext)
+
 	// EnterAssignment is called when entering the assignment production.
 	EnterAssignment(c *AssignmentContext)
 
-	// EnterDivision is called when entering the division production.
-	EnterDivision(c *DivisionContext)
+	// EnterIdResolution is called when entering the idResolution production.
+	EnterIdResolution(c *IdResolutionContext)
 
-	// EnterIdentifier is called when entering the identifier production.
-	EnterIdentifier(c *IdentifierContext)
-
-	// EnterExponentiation is called when entering the exponentiation production.
-	EnterExponentiation(c *ExponentiationContext)
-
-	// EnterIntConstant is called when entering the intConstant production.
-	EnterIntConstant(c *IntConstantContext)
+	// EnterMulOrDivOp is called when entering the mulOrDivOp production.
+	EnterMulOrDivOp(c *MulOrDivOpContext)
 
 	// EnterStringConstant is called when entering the stringConstant production.
 	EnterStringConstant(c *StringConstantContext)
@@ -41,20 +41,17 @@ type mindcarbonListener interface {
 	// EnterFunctionCall is called when entering the functionCall production.
 	EnterFunctionCall(c *FunctionCallContext)
 
-	// EnterFloatConstant is called when entering the floatConstant production.
-	EnterFloatConstant(c *FloatConstantContext)
+	// EnterAddOrMinOp is called when entering the addOrMinOp production.
+	EnterAddOrMinOp(c *AddOrMinOpContext)
 
-	// EnterSubtraction is called when entering the subtraction production.
-	EnterSubtraction(c *SubtractionContext)
-
-	// EnterMultiplication is called when entering the multiplication production.
-	EnterMultiplication(c *MultiplicationContext)
+	// EnterExpOp is called when entering the expOp production.
+	EnterExpOp(c *ExpOpContext)
 
 	// EnterGrouping is called when entering the grouping production.
 	EnterGrouping(c *GroupingContext)
 
-	// EnterAddition is called when entering the addition production.
-	EnterAddition(c *AdditionContext)
+	// EnterNumberConstant is called when entering the numberConstant production.
+	EnterNumberConstant(c *NumberConstantContext)
 
 	// ExitProgram is called when exiting the program production.
 	ExitProgram(c *ProgramContext)
@@ -68,20 +65,20 @@ type mindcarbonListener interface {
 	// ExitParamDef is called when exiting the paramDef production.
 	ExitParamDef(c *ParamDefContext)
 
+	// ExitBlock is called when exiting the block production.
+	ExitBlock(c *BlockContext)
+
+	// ExitBstat is called when exiting the bstat production.
+	ExitBstat(c *BstatContext)
+
 	// ExitAssignment is called when exiting the assignment production.
 	ExitAssignment(c *AssignmentContext)
 
-	// ExitDivision is called when exiting the division production.
-	ExitDivision(c *DivisionContext)
+	// ExitIdResolution is called when exiting the idResolution production.
+	ExitIdResolution(c *IdResolutionContext)
 
-	// ExitIdentifier is called when exiting the identifier production.
-	ExitIdentifier(c *IdentifierContext)
-
-	// ExitExponentiation is called when exiting the exponentiation production.
-	ExitExponentiation(c *ExponentiationContext)
-
-	// ExitIntConstant is called when exiting the intConstant production.
-	ExitIntConstant(c *IntConstantContext)
+	// ExitMulOrDivOp is called when exiting the mulOrDivOp production.
+	ExitMulOrDivOp(c *MulOrDivOpContext)
 
 	// ExitStringConstant is called when exiting the stringConstant production.
 	ExitStringConstant(c *StringConstantContext)
@@ -89,18 +86,15 @@ type mindcarbonListener interface {
 	// ExitFunctionCall is called when exiting the functionCall production.
 	ExitFunctionCall(c *FunctionCallContext)
 
-	// ExitFloatConstant is called when exiting the floatConstant production.
-	ExitFloatConstant(c *FloatConstantContext)
+	// ExitAddOrMinOp is called when exiting the addOrMinOp production.
+	ExitAddOrMinOp(c *AddOrMinOpContext)
 
-	// ExitSubtraction is called when exiting the subtraction production.
-	ExitSubtraction(c *SubtractionContext)
-
-	// ExitMultiplication is called when exiting the multiplication production.
-	ExitMultiplication(c *MultiplicationContext)
+	// ExitExpOp is called when exiting the expOp production.
+	ExitExpOp(c *ExpOpContext)
 
 	// ExitGrouping is called when exiting the grouping production.
 	ExitGrouping(c *GroupingContext)
 
-	// ExitAddition is called when exiting the addition production.
-	ExitAddition(c *AdditionContext)
+	// ExitNumberConstant is called when exiting the numberConstant production.
+	ExitNumberConstant(c *NumberConstantContext)
 }

@@ -45,35 +45,35 @@ func (s *BasemindcarbonListener) EnterParamDef(ctx *ParamDefContext) {}
 // ExitParamDef is called when production paramDef is exited.
 func (s *BasemindcarbonListener) ExitParamDef(ctx *ParamDefContext) {}
 
+// EnterBlock is called when production block is entered.
+func (s *BasemindcarbonListener) EnterBlock(ctx *BlockContext) {}
+
+// ExitBlock is called when production block is exited.
+func (s *BasemindcarbonListener) ExitBlock(ctx *BlockContext) {}
+
+// EnterBstat is called when production bstat is entered.
+func (s *BasemindcarbonListener) EnterBstat(ctx *BstatContext) {}
+
+// ExitBstat is called when production bstat is exited.
+func (s *BasemindcarbonListener) ExitBstat(ctx *BstatContext) {}
+
 // EnterAssignment is called when production assignment is entered.
 func (s *BasemindcarbonListener) EnterAssignment(ctx *AssignmentContext) {}
 
 // ExitAssignment is called when production assignment is exited.
 func (s *BasemindcarbonListener) ExitAssignment(ctx *AssignmentContext) {}
 
-// EnterDivision is called when production division is entered.
-func (s *BasemindcarbonListener) EnterDivision(ctx *DivisionContext) {}
+// EnterIdResolution is called when production idResolution is entered.
+func (s *BasemindcarbonListener) EnterIdResolution(ctx *IdResolutionContext) {}
 
-// ExitDivision is called when production division is exited.
-func (s *BasemindcarbonListener) ExitDivision(ctx *DivisionContext) {}
+// ExitIdResolution is called when production idResolution is exited.
+func (s *BasemindcarbonListener) ExitIdResolution(ctx *IdResolutionContext) {}
 
-// EnterIdentifier is called when production identifier is entered.
-func (s *BasemindcarbonListener) EnterIdentifier(ctx *IdentifierContext) {}
+// EnterMulOrDivOp is called when production mulOrDivOp is entered.
+func (s *BasemindcarbonListener) EnterMulOrDivOp(ctx *MulOrDivOpContext) {}
 
-// ExitIdentifier is called when production identifier is exited.
-func (s *BasemindcarbonListener) ExitIdentifier(ctx *IdentifierContext) {}
-
-// EnterExponentiation is called when production exponentiation is entered.
-func (s *BasemindcarbonListener) EnterExponentiation(ctx *ExponentiationContext) {}
-
-// ExitExponentiation is called when production exponentiation is exited.
-func (s *BasemindcarbonListener) ExitExponentiation(ctx *ExponentiationContext) {}
-
-// EnterIntConstant is called when production intConstant is entered.
-func (s *BasemindcarbonListener) EnterIntConstant(ctx *IntConstantContext) {}
-
-// ExitIntConstant is called when production intConstant is exited.
-func (s *BasemindcarbonListener) ExitIntConstant(ctx *IntConstantContext) {}
+// ExitMulOrDivOp is called when production mulOrDivOp is exited.
+func (s *BasemindcarbonListener) ExitMulOrDivOp(ctx *MulOrDivOpContext) {}
 
 // EnterStringConstant is called when production stringConstant is entered.
 func (s *BasemindcarbonListener) EnterStringConstant(ctx *StringConstantContext) {}
@@ -87,23 +87,17 @@ func (s *BasemindcarbonListener) EnterFunctionCall(ctx *FunctionCallContext) {}
 // ExitFunctionCall is called when production functionCall is exited.
 func (s *BasemindcarbonListener) ExitFunctionCall(ctx *FunctionCallContext) {}
 
-// EnterFloatConstant is called when production floatConstant is entered.
-func (s *BasemindcarbonListener) EnterFloatConstant(ctx *FloatConstantContext) {}
+// EnterAddOrMinOp is called when production addOrMinOp is entered.
+func (s *BasemindcarbonListener) EnterAddOrMinOp(ctx *AddOrMinOpContext) {}
 
-// ExitFloatConstant is called when production floatConstant is exited.
-func (s *BasemindcarbonListener) ExitFloatConstant(ctx *FloatConstantContext) {}
+// ExitAddOrMinOp is called when production addOrMinOp is exited.
+func (s *BasemindcarbonListener) ExitAddOrMinOp(ctx *AddOrMinOpContext) {}
 
-// EnterSubtraction is called when production subtraction is entered.
-func (s *BasemindcarbonListener) EnterSubtraction(ctx *SubtractionContext) {}
+// EnterExpOp is called when production expOp is entered.
+func (s *BasemindcarbonListener) EnterExpOp(ctx *ExpOpContext) {}
 
-// ExitSubtraction is called when production subtraction is exited.
-func (s *BasemindcarbonListener) ExitSubtraction(ctx *SubtractionContext) {}
-
-// EnterMultiplication is called when production multiplication is entered.
-func (s *BasemindcarbonListener) EnterMultiplication(ctx *MultiplicationContext) {}
-
-// ExitMultiplication is called when production multiplication is exited.
-func (s *BasemindcarbonListener) ExitMultiplication(ctx *MultiplicationContext) {}
+// ExitExpOp is called when production expOp is exited.
+func (s *BasemindcarbonListener) ExitExpOp(ctx *ExpOpContext) {}
 
 // EnterGrouping is called when production grouping is entered.
 func (s *BasemindcarbonListener) EnterGrouping(ctx *GroupingContext) {}
@@ -111,8 +105,8 @@ func (s *BasemindcarbonListener) EnterGrouping(ctx *GroupingContext) {}
 // ExitGrouping is called when production grouping is exited.
 func (s *BasemindcarbonListener) ExitGrouping(ctx *GroupingContext) {}
 
-// EnterAddition is called when production addition is entered.
-func (s *BasemindcarbonListener) EnterAddition(ctx *AdditionContext) {}
+// EnterNumberConstant is called when production numberConstant is entered.
+func (s *BasemindcarbonListener) EnterNumberConstant(ctx *NumberConstantContext) {}
 
-// ExitAddition is called when production addition is exited.
-func (s *BasemindcarbonListener) ExitAddition(ctx *AdditionContext) {}
+// ExitNumberConstant is called when production numberConstant is exited.
+func (s *BasemindcarbonListener) ExitNumberConstant(ctx *NumberConstantContext) {}
