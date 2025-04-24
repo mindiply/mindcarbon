@@ -300,31 +300,31 @@ func (s *EvalTreeListener) ExitFunctionCall(ctx *parser.FunctionCallContext) {
 		s.errors = append(s.errors, fmt.Errorf("function name required"))
 		return
 	}
-	fnName := fnNamToken.GetText()
-	fnName = strings.Trim(fnName, " \t")
-	if fnName == "" {
-		s.errors = append(s.errors, fmt.Errorf("function name required"))
+	fnNameEvaluator, ok := s.evaluators[fnNamToken]
+	if (!ok) || (fnNameEvaluator == nil) {
+		s.errors = append(s.errors, fmt.Errorf("function name required for function"))
 		return
 	}
+
 	argsExprs := ctx.AllExpr()
 	argsIds := ctx.AllID()
 	prms := make(map[string]evaltree.Evaluator)
-	nNames := len(argsIds) - 1
-	nArgsEvaluators := len(argsExprs)
+	nNames := len(argsIds)
+	nArgsEvaluators := len(argsExprs) - 1
 	if nArgsEvaluators != nNames {
 		s.errors = append(s.errors, fmt.Errorf("number of arguments does not match number of parameters"))
 		return
 	}
-	for i, arg := range argsExprs {
-		argName := argsIds[i+1].GetText()
+	for i := 1; i < len(argsExprs); i++ {
+		argName := argsIds[i-1].GetText()
 		argName = strings.Trim(argName, " \t")
 		if argName == "" {
 			s.errors = append(s.errors, fmt.Errorf("argument name required"))
 			return
 		}
-		prms[argName] = s.evaluators[arg]
+		prms[argName] = s.evaluators[argsExprs[i]]
 	}
-	s.evaluators[ctx] = evaltree.NewFunctionCallEvaluator(fnName, prms)
+	s.evaluators[ctx] = evaltree.NewFunctionCallEvaluator(fnNameEvaluator, prms)
 }
 
 func (s *EvalTreeListener) ExitMulOrDivOp(ctx *parser.MulOrDivOpContext) {

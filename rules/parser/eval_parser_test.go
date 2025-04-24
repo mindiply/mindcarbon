@@ -200,19 +200,19 @@ func TestFunctionCallStatements(t *testing.T) {
 	dmls := []string{"f();", "g(a: 1);", "h(a: 1, b_2: 2);", "i(foo: 1, bar: 2, bz: 3);", "j(a: 1, b: 2.0, c:\"Hello\", d: 0.4);"}
 	dml := strings.Join(dmls, "\n")
 	fnCallsEvaluators := []evaltree.Evaluator{
-		evaltree.NewFunctionCallEvaluator("f", nil),
-		evaltree.NewFunctionCallEvaluator("g", map[string]evaltree.Evaluator{
+		evaltree.NewFunctionCallEvaluator(evaltree.NewVariableEvaluator("f"), nil),
+		evaltree.NewFunctionCallEvaluator(evaltree.NewVariableEvaluator("g"), map[string]evaltree.Evaluator{
 			"a": evaltree.NewNumberEvaluator(1)}),
-		evaltree.NewFunctionCallEvaluator("h", map[string]evaltree.Evaluator{
+		evaltree.NewFunctionCallEvaluator(evaltree.NewVariableEvaluator("h"), map[string]evaltree.Evaluator{
 			"a":   evaltree.NewNumberEvaluator(1),
 			"b_2": evaltree.NewNumberEvaluator(2),
 		}),
-		evaltree.NewFunctionCallEvaluator("i", map[string]evaltree.Evaluator{
+		evaltree.NewFunctionCallEvaluator(evaltree.NewVariableEvaluator("i"), map[string]evaltree.Evaluator{
 			"foo": evaltree.NewNumberEvaluator(1),
 			"bar": evaltree.NewNumberEvaluator(2),
 			"bz":  evaltree.NewNumberEvaluator(3),
 		}),
-		evaltree.NewFunctionCallEvaluator("j", map[string]evaltree.Evaluator{
+		evaltree.NewFunctionCallEvaluator(evaltree.NewVariableEvaluator("j"), map[string]evaltree.Evaluator{
 			"a": evaltree.NewNumberEvaluator(1),
 			"b": evaltree.NewNumberEvaluator(2.0),
 			"c": evaltree.NewStringEvaluator("Hello"),

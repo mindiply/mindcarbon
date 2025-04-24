@@ -14,14 +14,14 @@ block: LCURLY bstat* expr RCURLY;
 bstat: assignment | expr SM;
 
 assignment: ID EQUALS expr SM;
-expr: LPAREN expr RPAREN # grouping
-          | expr EXP<assoc=right> expr # expOp
+expr: fnName=expr LPAREN (prmName=ID COLUMN expr (',' prmName=ID COLUMN expr)*)? RPAREN # functionCall
+          | <assoc=right> expr EXP expr # expOp
           | expr op=(MUL|DIV) expr # mulOrDivOp
           | expr op=(ADD|MIN) expr # addOrMinOp
-          | fnName=ID LPAREN (prmName=ID COLUMN expr (',' prmName=ID COLUMN expr)*)? RPAREN # functionCall
           | ID # idResolution
           | MIN? (FLOAT | INT) # numberConstant
           | QUOTED_STRING # stringConstant
+          | LPAREN expr RPAREN # grouping
           ;
 
 COMPUTATION: [Cc][Oo][Mm][Pp][Uu][Tt][Aa][Tt][Ii][Oo][Nn];

@@ -45,13 +45,13 @@ const FALSE = "false"
 func (m *MathExpressionEvaluator) Evaluate(enf Environment) Object {
 	leftValue := m.left.Evaluate(enf)
 	rightValue := m.right.Evaluate(enf)
-	left, lok := leftValue.(NumberObject)
+	left, lok := leftValue.(*NumberObject)
 	if !lok {
-		return NewError(fmt.Sprintf("Cannot evaluate left expression"))
+		return NewError(fmt.Sprintf("You can only perform math operations on numbers"))
 	}
-	right, rok := rightValue.(NumberObject)
+	right, rok := rightValue.(*NumberObject)
 	if !rok {
-		return NewError(fmt.Sprintf("Cannot evaluate right expression"))
+		return NewError(fmt.Sprintf("You can only perform math operations on numbers"))
 	}
 
 	switch m.operator {
@@ -60,7 +60,7 @@ func (m *MathExpressionEvaluator) Evaluate(enf Environment) Object {
 	case "-":
 		return &NumberObject{FValue: left.FValue - right.FValue}
 	case "*":
-		return &NumberObject{FValue: left.FValue / right.FValue}
+		return &NumberObject{FValue: left.FValue * right.FValue}
 	case "/":
 		return &NumberObject{FValue: left.FValue / right.FValue}
 	case "^":
@@ -83,7 +83,12 @@ type FunctionDefinitionEvaluator struct {
 }
 
 func (f *FunctionDefinitionEvaluator) Evaluate(env Environment) Object {
-	env.Set(f.name, f)
+	defObj := &FunctionDefinitionObject{
+		Name:       f.name,
+		Parameters: f.arguments,
+		Body:       f.body,
+	}
+	env.Set(f.name, ScalarEvaluator{Value: defObj})
 	return NULL
 }
 
@@ -104,22 +109,22 @@ func (b *BlockEvaluator) Evaluate(enf Environment) Object {
 }
 
 type FunctionCallEvaluator struct {
-	name      string
-	arguments map[string]Evaluator
+	nameEvaluator Evaluator
+	arguments     map[string]Evaluator
 }
 
 func (f *FunctionCallEvaluator) Evaluate(env Environment) Object {
-	fnDef, ok := env.Get(f.name)
-	if !ok {
-		return NewError("Function %s not found", f.name)
+	fnDef := f.nameEvaluator.Evaluate(env)
+	if fnDef.Type() != FN_DEF_TYPE {
+		return NewError("Cannot resolve to a function definition")
 	}
-	functionDef, ok := fnDef.(*FunctionDefinitionEvaluator)
+	functionDef, ok := fnDef.(*FunctionDefinitionObject)
 	if !ok {
-		return NewError("Identifier %s is not a function", f.name)
+		return NewError("Not resolved to a function")
 	}
 	fEnv := NewEnvironment(env)
 	for name, arg := range f.arguments {
-		if _, ok := functionDef.arguments[name]; !ok {
+		if _, ok := functionDef.Parameters[name]; !ok {
 			return NewError("Argument %s not in the list of required arguments", name)
 		}
 		value := arg.Evaluate(env)
@@ -128,13 +133,13 @@ func (f *FunctionCallEvaluator) Evaluate(env Environment) Object {
 		fEnv.Set(name, valEvaluator)
 	}
 
-	for name, _ := range functionDef.arguments {
+	for name, _ := range functionDef.Parameters {
 		if _, ok := fEnv.Get(name); !ok {
 			return NewError("Argument %s is required", name)
 		}
 		// ToDo: check if the argument is of the correct type
 	}
-	return functionDef.body.Evaluate(fEnv)
+	return functionDef.Body.Evaluate(fEnv)
 }
 
 type ParenthesizedEvaluator struct {
@@ -199,11 +204,11 @@ func NewMathExpressionEvaluator(left, right Evaluator, operator string) Evaluato
 	return &MathExpressionEvaluator{left: left, right: right, operator: operator}
 }
 
-func NewFunctionCallEvaluator(name string, arguments map[string]Evaluator) Evaluator {
+func NewFunctionCallEvaluator(nameEvaluator Evaluator, arguments map[string]Evaluator) Evaluator {
 	if arguments == nil {
 		arguments = make(map[string]Evaluator)
 	}
-	return &FunctionCallEvaluator{name: name, arguments: arguments}
+	return &FunctionCallEvaluator{nameEvaluator: nameEvaluator, arguments: arguments}
 }
 
 func NewAssignmentEvaluator(name string, bodyEvaluator Evaluator) Evaluator {

@@ -1,6 +1,8 @@
 package evaltree
 
-import "fmt"
+import (
+	"fmt"
+)
 
 const (
 	NULLTYPE    = "null"
@@ -37,6 +39,10 @@ func (n NumberObject) Inspect() string {
 	return fmt.Sprintf("Number {%f}", n.FValue)
 }
 
+func NewNumberObject(value float64) *NumberObject {
+	return &NumberObject{FValue: value}
+}
+
 type StringObject struct {
 	value string
 }
@@ -51,6 +57,10 @@ func (s StringObject) Value() interface{} {
 
 func (s StringObject) Inspect() string {
 	return fmt.Sprintf("String {%s}", s.value)
+}
+
+func NewStringObject(value string) *StringObject {
+	return &StringObject{value: value}
 }
 
 type NullObject struct {
@@ -96,7 +106,7 @@ func NewError(format string, a ...interface{}) *ErrorObject {
 
 type FunctionDefinitionObject struct {
 	Name       string
-	Parameters []string
+	Parameters map[string]ParameterDefinition
 	Body       Evaluator
 }
 
@@ -112,6 +122,6 @@ func (f FunctionDefinitionObject) Inspect() string {
 	return fmt.Sprintf("FunctionDefinition {%s}", f.Name)
 }
 
-func NewFunctionDefinitionObject(name string, parameters []string, body Evaluator) *FunctionDefinitionObject {
+func NewFunctionDefinitionObject(name string, parameters map[string]ParameterDefinition, body Evaluator) *FunctionDefinitionObject {
 	return &FunctionDefinitionObject{Name: name, Parameters: parameters, Body: body}
 }

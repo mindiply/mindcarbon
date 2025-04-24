@@ -31,7 +31,7 @@ func (e *EnvironmentObject) Set(key string, value Evaluator) {
 	e.namedObjects[key] = value
 }
 
-func NewEnvironment(parent Environment) *EnvironmentObject {
+func NewEnvironment(parent Environment) Environment {
 	return &EnvironmentObject{
 		namedObjects: make(map[string]Evaluator),
 		parentEnv:    parent,
