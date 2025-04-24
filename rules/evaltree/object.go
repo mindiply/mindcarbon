@@ -5,11 +5,12 @@ import (
 )
 
 const (
-	NULLTYPE    = "null"
-	NUMBERTYPE  = "number"
-	STRINGTYPE  = "string"
-	ERRORTYPE   = "error"
-	FN_DEF_TYPE = "functionDefinition"
+	NULLTYPE       = "null"
+	NUMBERTYPE     = "number"
+	STRINGTYPE     = "string"
+	ERRORTYPE      = "error"
+	FN_DEF_TYPE    = "functionDefinition"
+	NATIVE_FN_TYPE = "nativeFunction"
 )
 
 type ObjectType string
@@ -124,4 +125,25 @@ func (f FunctionDefinitionObject) Inspect() string {
 
 func NewFunctionDefinitionObject(name string, parameters map[string]ParameterDefinition, body Evaluator) *FunctionDefinitionObject {
 	return &FunctionDefinitionObject{Name: name, Parameters: parameters, Body: body}
+}
+
+type NativeFunctionDefinitionObject struct {
+	Name string
+	Fn   NativeFunction
+}
+
+func (n NativeFunctionDefinitionObject) Type() ObjectType {
+	return NATIVE_FN_TYPE
+}
+
+func (n NativeFunctionDefinitionObject) Value() interface{} {
+	return n
+}
+
+func (n NativeFunctionDefinitionObject) Inspect() string {
+	return fmt.Sprintf("NativeFunctionDefinition {%s}", n.Name)
+}
+
+func NewNativeFunctionDefinitionObject(name string, fn NativeFunction) *NativeFunctionDefinitionObject {
+	return &NativeFunctionDefinitionObject{Name: name, Fn: fn}
 }

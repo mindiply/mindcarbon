@@ -42,7 +42,10 @@ func (i *interpreter) RootEnv() evaltree.Environment {
 
 // NewInterpreter creates a new interpreter
 func NewInterpreter() Interpreter {
+	rootEnv := evaltree.NewEnvironment(nil)
+	// Add built-in functions to the root environment
+	rootEnv.Set("LookupFactorFor", evaltree.NewNativeFunctionCallEvaluator("LookupFactorFor", evaltree.LookupFactorFor))
 	return &interpreter{
-		rootEnv: evaltree.NewEnvironment(nil),
+		rootEnv: rootEnv,
 	}
 }

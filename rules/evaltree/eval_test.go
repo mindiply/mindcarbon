@@ -233,3 +233,27 @@ func TestBlockEvaluator_Evaluate(t *testing.T) {
 		}
 	}
 }
+
+func TestNativeFunction_Evaluate(t *testing.T) {
+	tests := []struct {
+		evaluator Evaluator
+		expected  Object
+	}{
+		{
+			evaluator: NewFunctionCallEvaluator(NewVariableEvaluator("LookupFactorFor"), map[string]Evaluator{}),
+			expected:  NewNumberObject(0),
+		},
+	}
+	env := NewEnvironment(nil)
+	env.Set("LookupFactorFor", NewNativeFunctionCallEvaluator("LookupFactorFor", LookupFactorFor))
+	for _, test := range tests {
+		result := test.evaluator.Evaluate(env)
+		if result.Type() != test.expected.Type() {
+			t.Errorf("Expected type %s, got %s", test.expected.Type(), result.Type())
+		}
+		if result.Inspect() != test.expected.Inspect() {
+			t.Errorf("Expected %s, got %s", test.expected.Inspect(), result.Inspect())
+		}
+	}
+
+}

@@ -110,31 +110,39 @@ type FunctionCallEvaluator struct {
 
 func (f *FunctionCallEvaluator) Evaluate(env Environment) Object {
 	fnDef := f.nameEvaluator.Evaluate(env)
-	if fnDef.Type() != FN_DEF_TYPE {
+	if fnDef.Type() != FN_DEF_TYPE && fnDef.Type() != NATIVE_FN_TYPE {
 		return NewError("Cannot resolve to a function definition")
 	}
 	functionDef, ok := fnDef.(*FunctionDefinitionObject)
-	if !ok {
-		panic("Object with function definition type name is not a function definition object")
-	}
-	fEnv := NewEnvironment(env)
-	for name, arg := range f.arguments {
-		if _, ok := functionDef.Parameters[name]; !ok {
-			return NewError("Argument %s not in the list of required arguments", name)
+	if ok {
+		fEnv := NewEnvironment(env)
+		for name, arg := range f.arguments {
+			if _, ok := functionDef.Parameters[name]; !ok {
+				return NewError("Argument %s not in the list of required arguments", name)
+			}
+			value := arg.Evaluate(env)
+			var valEvaluator Evaluator
+			valEvaluator = ScalarEvaluator{Value: value}
+			fEnv.Set(name, valEvaluator)
 		}
-		value := arg.Evaluate(env)
-		var valEvaluator Evaluator
-		valEvaluator = ScalarEvaluator{Value: value}
-		fEnv.Set(name, valEvaluator)
-	}
 
-	for name, _ := range functionDef.Parameters {
-		if _, ok := fEnv.Get(name); !ok {
-			return NewError("Argument %s is required", name)
+		for name, _ := range functionDef.Parameters {
+			if _, ok := fEnv.Get(name); !ok {
+				return NewError("Argument %s is required", name)
+			}
+			// ToDo: check if the argument is of the correct type
 		}
-		// ToDo: check if the argument is of the correct type
+		return functionDef.Body.Evaluate(fEnv)
 	}
-	return functionDef.Body.Evaluate(fEnv)
+	nativeDef, ok := fnDef.(*NativeFunctionDefinitionObject)
+	if !ok {
+		return NewError("Cannot resolve to a valid function definition")
+	}
+	resolvedArguments := make(map[string]Object)
+	for name, arg := range f.arguments {
+		resolvedArguments[name] = arg.Evaluate(env)
+	}
+	return nativeDef.Fn(resolvedArguments)
 }
 
 type VariableEvaluator struct {
@@ -204,4 +212,17 @@ func NewAssignmentEvaluator(name string, bodyEvaluator Evaluator) Evaluator {
 
 func NewBlockEvaluator(statements []Evaluator) Evaluator {
 	return &BlockEvaluator{statements: statements}
+}
+
+type NativeFunctionCallEvaluator struct {
+	nativeFnObject *NativeFunctionDefinitionObject
+}
+
+func (n *NativeFunctionCallEvaluator) Evaluate(env Environment) Object {
+	return n.nativeFnObject
+}
+
+func NewNativeFunctionCallEvaluator(name string, nativeFunction NativeFunction) Evaluator {
+	return &NativeFunctionCallEvaluator{nativeFnObject: NewNativeFunctionDefinitionObject(
+		name, nativeFunction)}
 }
