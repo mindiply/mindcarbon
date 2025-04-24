@@ -283,7 +283,7 @@ func TestComputationDefinitionStatements(t *testing.T) {
 		m
 	}
 `
-	computationDefEvaluator := evaltree.NewComputationDefEvaluator(
+	computationDefEvaluator := evaltree.NewFunctionDefinitionEvaluator(
 		"test",
 		map[string]evaltree.ParameterDefinition{
 			"a": evaltree.NewParameterDefinition("a", "length", "km"),

@@ -117,7 +117,7 @@ func (s *EvalTreeListener) ExitComputationDef(ctx *parser.ComputationDefContext)
 		s.errors = append(s.errors, fmt.Errorf("block evaluator required for calculation definition %s", name))
 		return
 	}
-	s.evaluators[ctx] = evaltree.NewComputationDefEvaluator(name, params, blockEvaluator)
+	s.evaluators[ctx] = evaltree.NewFunctionDefinitionEvaluator(name, params, blockEvaluator)
 }
 
 func (s *EvalTreeListener) ExitParamDef(ctx *parser.ParamDefContext) {

@@ -1,7 +1,6 @@
 package evaltree
 
 import (
-	"fmt"
 	"math"
 )
 
@@ -23,7 +22,7 @@ type ProgramEvaluator struct {
 }
 
 func (p ProgramEvaluator) Evaluate(env Environment) Object {
-	var v Object
+	var v Object = NULL
 	for _, statement := range p.Statements {
 		v = statement.Evaluate(env)
 		if v.Type() == ERRORTYPE {
@@ -45,28 +44,28 @@ const FALSE = "false"
 func (m *MathExpressionEvaluator) Evaluate(enf Environment) Object {
 	leftValue := m.left.Evaluate(enf)
 	rightValue := m.right.Evaluate(enf)
-	left, lok := leftValue.(*NumberObject)
+	left, lok := leftValue.Value().(float64)
 	if !lok {
-		return NewError(fmt.Sprintf("You can only perform math operations on numbers"))
+		return NewError("You can only perform math operations on numbers")
 	}
-	right, rok := rightValue.(*NumberObject)
+	right, rok := rightValue.Value().(float64)
 	if !rok {
-		return NewError(fmt.Sprintf("You can only perform math operations on numbers"))
+		return NewError("You can only perform math operations on numbers")
 	}
 
 	switch m.operator {
 	case "+":
-		return &NumberObject{FValue: left.FValue + right.FValue}
+		return NewNumberObject(left + right)
 	case "-":
-		return &NumberObject{FValue: left.FValue - right.FValue}
+		return NewNumberObject(left - right)
 	case "*":
-		return &NumberObject{FValue: left.FValue * right.FValue}
+		return NewNumberObject(left * right)
 	case "/":
-		return &NumberObject{FValue: left.FValue / right.FValue}
+		return NewNumberObject(left / right)
 	case "^":
-		return &NumberObject{FValue: math.Pow(left.FValue, right.FValue)}
+		return NewNumberObject(math.Pow(left, right))
 	default:
-		return NewError(fmt.Sprintf("Unknown operator '%s'", m.operator))
+		return NewError("Invalid operator '%s'", m.operator)
 	}
 }
 
@@ -83,11 +82,7 @@ type FunctionDefinitionEvaluator struct {
 }
 
 func (f *FunctionDefinitionEvaluator) Evaluate(env Environment) Object {
-	defObj := &FunctionDefinitionObject{
-		Name:       f.name,
-		Parameters: f.arguments,
-		Body:       f.body,
-	}
+	defObj := NewFunctionDefinitionObject(f.name, f.arguments, f.body)
 	env.Set(f.name, ScalarEvaluator{Value: defObj})
 	return NULL
 }
@@ -97,7 +92,7 @@ type BlockEvaluator struct {
 }
 
 func (b *BlockEvaluator) Evaluate(enf Environment) Object {
-	var result Object
+	var result Object = NULL
 	for _, statement := range b.statements {
 		result = statement.Evaluate(enf)
 		if result.Type() == ERRORTYPE {
@@ -120,7 +115,7 @@ func (f *FunctionCallEvaluator) Evaluate(env Environment) Object {
 	}
 	functionDef, ok := fnDef.(*FunctionDefinitionObject)
 	if !ok {
-		return NewError("Not resolved to a function")
+		panic("Object with function definition type name is not a function definition object")
 	}
 	fEnv := NewEnvironment(env)
 	for name, arg := range f.arguments {
@@ -142,14 +137,6 @@ func (f *FunctionCallEvaluator) Evaluate(env Environment) Object {
 	return functionDef.Body.Evaluate(fEnv)
 }
 
-type ParenthesizedEvaluator struct {
-	innerExpression Evaluator
-}
-
-func (p *ParenthesizedEvaluator) Evaluate(env Environment) Object {
-	return p.innerExpression.Evaluate(env)
-}
-
 type VariableEvaluator struct {
 	Name string
 }
@@ -157,7 +144,7 @@ type VariableEvaluator struct {
 func (v VariableEvaluator) Evaluate(env Environment) Object {
 	variable, ok := env.Get(v.Name)
 	if !ok {
-		return NewError("Variable %s not found", v.Name)
+		return NewError("variable %s not found", v.Name)
 	}
 	return variable.Evaluate(env)
 }
@@ -185,18 +172,18 @@ func NewProgramEvaluator(statements []Evaluator) Evaluator {
 }
 
 func NewNumberEvaluator(value float64) Evaluator {
-	return ScalarEvaluator{Value: &NumberObject{FValue: value}}
+	return ScalarEvaluator{Value: NewNumberObject(value)}
 }
 
 func NewStringEvaluator(value string) Evaluator {
-	return ScalarEvaluator{Value: &StringObject{value: value}}
+	return ScalarEvaluator{NewStringObject(value)}
 }
 
 func NewParameterDefinition(name, quality, unitOfMeasure string) ParameterDefinition {
 	return ParameterDefinition{Name: name, Quality: quality, UnitOfMeasure: unitOfMeasure}
 }
 
-func NewComputationDefEvaluator(name string, arguments map[string]ParameterDefinition, body Evaluator) Evaluator {
+func NewFunctionDefinitionEvaluator(name string, arguments map[string]ParameterDefinition, body Evaluator) Evaluator {
 	return &FunctionDefinitionEvaluator{name: name, arguments: arguments, body: body}
 }
 

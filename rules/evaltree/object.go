@@ -24,7 +24,7 @@ type Object interface {
 }
 
 type NumberObject struct {
-	FValue float64
+	value float64
 }
 
 func (n NumberObject) Type() ObjectType {
@@ -32,15 +32,15 @@ func (n NumberObject) Type() ObjectType {
 }
 
 func (n NumberObject) Value() interface{} {
-	return n.FValue
+	return n.value
 }
 
 func (n NumberObject) Inspect() string {
-	return fmt.Sprintf("Number {%f}", n.FValue)
+	return fmt.Sprintf("Number {%f}", n.value)
 }
 
 func NewNumberObject(value float64) *NumberObject {
-	return &NumberObject{FValue: value}
+	return &NumberObject{value: value}
 }
 
 type StringObject struct {
@@ -115,7 +115,7 @@ func (f FunctionDefinitionObject) Type() ObjectType {
 }
 
 func (f FunctionDefinitionObject) Value() interface{} {
-	return nil
+	return f
 }
 
 func (f FunctionDefinitionObject) Inspect() string {

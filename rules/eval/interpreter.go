@@ -28,9 +28,9 @@ func (i *interpreter) EvaluateDML(dml string) (evaltree.Object, error) {
 	}
 	result := program.Evaluate(i.rootEnv)
 	if result == nil {
-		return nil, fmt.Errorf("result is nil")
-	} else if err, ok := result.(error); ok {
-		return nil, err
+		return evaltree.NULL, fmt.Errorf("unexpected error: result is nil")
+	} else if result.Type() == evaltree.ERRORTYPE {
+		return result, fmt.Errorf("execution error: %s", result.Value())
 	}
 	return result, nil
 }

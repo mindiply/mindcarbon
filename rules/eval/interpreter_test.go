@@ -2,6 +2,7 @@ package eval
 
 import (
 	"github.com/mindiply/mindcarbon/rules/evaltree"
+	"strings"
 	"testing"
 )
 
@@ -14,6 +15,33 @@ func TestNewInterpreter(t *testing.T) {
 	if i.RootEnv() == nil {
 		t.Errorf("RootEnv() returned nil")
 		return
+	}
+	_, err := i.EvaluateDML("Not a DML statement")
+	expectedErr := "errors during parsing"
+	if !(err != nil && strings.HasPrefix(err.Error(), expectedErr)) {
+		errorMsg := ""
+		if err != nil {
+			errorMsg = err.Error()
+		}
+		t.Errorf("Expected %s, got %s", expectedErr, errorMsg)
+	}
+
+	v, err := i.EvaluateDML("")
+	if err != nil {
+		t.Errorf("Excpected no error with an ampty DML statement, got %s", err.Error())
+		return
+	}
+	if v.Type() != evaltree.NULLTYPE {
+		t.Errorf("Expected NULL type, got %s", v.Type())
+		return
+	}
+
+	_, err = i.EvaluateDML("NULL+2;")
+	expectedErr = "execution error: You can only perform math operations on numbers"
+	if err == nil {
+		t.Errorf(`Expected an error with "NULL+2", got nil`)
+	} else if err.Error() != expectedErr {
+		t.Errorf("Expected %s, got %s", expectedErr, err.Error())
 	}
 }
 
@@ -63,9 +91,27 @@ func TestNonFuncAssignments(t *testing.T) {
 		{"a = -1;b = a;b;", evaltree.NewNumberObject(-1)},
 		{"a = 2/2;b = 3+a;b;", evaltree.NewNumberObject(4)},
 		{`a = "hello";a;`, evaltree.NewStringObject("hello")},
-		{`a = "hello";b=2;b+a;`, evaltree.NewError("You can only perform math operations on numbers")},
 	}
 	runTests(t, tests)
+}
+
+func TestRuntimeErrors(t *testing.T) {
+	tests := [][]string{
+		{`a = "hello";b=2;b+a;`, "execution error: You can only perform math operations on numbers"},
+		{`a = "hello";b=a;b+a;`, "execution error: You can only perform math operations on numbers"},
+	}
+	i := NewInterpreter()
+	for _, test := range tests {
+		v, e := i.EvaluateDML(test[0])
+		if v.Type() != evaltree.ERRORTYPE {
+			t.Errorf("Expected error type, got %s", v.Type())
+		}
+		if e == nil {
+			t.Errorf("Expected error with %q, got nil", test[0])
+		} else if e.Error() != test[1] {
+			t.Errorf("Expected error message \"%q\", got \"%q\"", test[1], e.Error())
+		}
+	}
 }
 
 func TestSimpleFunctions(t *testing.T) {
