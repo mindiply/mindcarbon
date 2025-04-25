@@ -230,7 +230,7 @@ func (s *EvalTreeListener) ExitNumberConstant(ctx *parser.NumberConstantContext)
 	if negCtx != nil {
 		n = -n
 	}
-	s.evaluators[ctx] = evaltree.NewNumberEvaluator(n)
+	s.evaluators[ctx] = evaltree.NewLiteralEvaluator(n)
 }
 
 func (s *EvalTreeListener) ExitStringConstant(ctx *parser.StringConstantContext) {
@@ -241,7 +241,7 @@ func (s *EvalTreeListener) ExitStringConstant(ctx *parser.StringConstantContext)
 	}
 	str := strToken.GetText()
 	str = str[1 : len(str)-1] // Remove the quotes
-	s.evaluators[ctx] = evaltree.NewStringEvaluator(str)
+	s.evaluators[ctx] = evaltree.NewLiteralEvaluator(str)
 }
 
 func (s *EvalTreeListener) ExitIdResolution(ctx *parser.IdResolutionContext) {
@@ -250,7 +250,7 @@ func (s *EvalTreeListener) ExitIdResolution(ctx *parser.IdResolutionContext) {
 		s.errors = append(s.errors, fmt.Errorf("identifier required"))
 		return
 	}
-	s.evaluators[ctx] = evaltree.NewVariableEvaluator(strCtx.GetText())
+	s.evaluators[ctx] = evaltree.NewIdentifierEvaluator(strCtx.GetText())
 }
 
 func (s *EvalTreeListener) ExitAssignment(ctx *parser.AssignmentContext) {

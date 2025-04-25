@@ -99,9 +99,9 @@ func TestIdResolutionStatements(t *testing.T) {
 		return
 	}
 	for i, statement := range p.Statements {
-		assign, ok := statement.(*evaltree.VariableEvaluator)
+		assign, ok := statement.(*evaltree.IdentifierEvaluator)
 		if !ok {
-			t.Errorf("Expected VariableEvaluator")
+			t.Errorf("Expected IdentifierEvaluator")
 			continue
 		}
 		if assign.Name != varNames[i] {
@@ -134,11 +134,11 @@ func TestGroupingExpressionStatements(t *testing.T) {
 	("a");
 	((("hello")));
 `
-	exprConstants := []interface{}{evaltree.NewNumberEvaluator(2.2),
-		evaltree.NewNumberEvaluator(2.2),
-		evaltree.NewNumberEvaluator(2),
-		evaltree.NewStringEvaluator("a"),
-		evaltree.NewStringEvaluator("hello")}
+	exprConstants := []interface{}{evaltree.NewLiteralEvaluator(2.2),
+		evaltree.NewLiteralEvaluator(2.2),
+		evaltree.NewLiteralEvaluator(2),
+		evaltree.NewLiteralEvaluator("a"),
+		evaltree.NewLiteralEvaluator("hello")}
 	p, err := parseProgram(input)
 	if err != nil {
 		t.Errorf("Error parsing DML: %v", err)
@@ -171,8 +171,8 @@ func TestMathExpressionStatements(t *testing.T) {
 		for _, pair := range values {
 			input += fmt.Sprintf("%f %s %f;\n", pair[0], op, pair[1])
 			exprConstants = append(exprConstants, evaltree.NewMathExpressionEvaluator(
-				evaltree.NewNumberEvaluator(pair[0]),
-				evaltree.NewNumberEvaluator(pair[1]),
+				evaltree.NewLiteralEvaluator(pair[0]),
+				evaltree.NewLiteralEvaluator(pair[1]),
 				op,
 			))
 		}
@@ -200,23 +200,23 @@ func TestFunctionCallStatements(t *testing.T) {
 	dmls := []string{"f();", "g(a: 1);", "h(a: 1, b_2: 2);", "i(foo: 1, bar: 2, bz: 3);", "j(a: 1, b: 2.0, c:\"Hello\", d: 0.4);"}
 	dml := strings.Join(dmls, "\n")
 	fnCallsEvaluators := []evaltree.Evaluator{
-		evaltree.NewFunctionCallEvaluator(evaltree.NewVariableEvaluator("f"), nil),
-		evaltree.NewFunctionCallEvaluator(evaltree.NewVariableEvaluator("g"), map[string]evaltree.Evaluator{
-			"a": evaltree.NewNumberEvaluator(1)}),
-		evaltree.NewFunctionCallEvaluator(evaltree.NewVariableEvaluator("h"), map[string]evaltree.Evaluator{
-			"a":   evaltree.NewNumberEvaluator(1),
-			"b_2": evaltree.NewNumberEvaluator(2),
+		evaltree.NewFunctionCallEvaluator(evaltree.NewIdentifierEvaluator("f"), nil),
+		evaltree.NewFunctionCallEvaluator(evaltree.NewIdentifierEvaluator("g"), map[string]evaltree.Evaluator{
+			"a": evaltree.NewLiteralEvaluator(1)}),
+		evaltree.NewFunctionCallEvaluator(evaltree.NewIdentifierEvaluator("h"), map[string]evaltree.Evaluator{
+			"a":   evaltree.NewLiteralEvaluator(1),
+			"b_2": evaltree.NewLiteralEvaluator(2),
 		}),
-		evaltree.NewFunctionCallEvaluator(evaltree.NewVariableEvaluator("i"), map[string]evaltree.Evaluator{
-			"foo": evaltree.NewNumberEvaluator(1),
-			"bar": evaltree.NewNumberEvaluator(2),
-			"bz":  evaltree.NewNumberEvaluator(3),
+		evaltree.NewFunctionCallEvaluator(evaltree.NewIdentifierEvaluator("i"), map[string]evaltree.Evaluator{
+			"foo": evaltree.NewLiteralEvaluator(1),
+			"bar": evaltree.NewLiteralEvaluator(2),
+			"bz":  evaltree.NewLiteralEvaluator(3),
 		}),
-		evaltree.NewFunctionCallEvaluator(evaltree.NewVariableEvaluator("j"), map[string]evaltree.Evaluator{
-			"a": evaltree.NewNumberEvaluator(1),
-			"b": evaltree.NewNumberEvaluator(2.0),
-			"c": evaltree.NewStringEvaluator("Hello"),
-			"d": evaltree.NewNumberEvaluator(0.4),
+		evaltree.NewFunctionCallEvaluator(evaltree.NewIdentifierEvaluator("j"), map[string]evaltree.Evaluator{
+			"a": evaltree.NewLiteralEvaluator(1),
+			"b": evaltree.NewLiteralEvaluator(2.0),
+			"c": evaltree.NewLiteralEvaluator("Hello"),
+			"d": evaltree.NewLiteralEvaluator(0.4),
 		}),
 	}
 	p, err := parseProgram(dml)
@@ -245,20 +245,20 @@ func TestAssignmentStatements(t *testing.T) {
 	e = test;
 `}
 	assignEvaluators := []evaltree.Evaluator{
-		evaltree.NewAssignmentEvaluator("a", evaltree.NewNumberEvaluator(1)),
-		evaltree.NewAssignmentEvaluator("b", evaltree.NewNumberEvaluator(2)),
-		evaltree.NewAssignmentEvaluator("c", evaltree.NewStringEvaluator("Hello")),
-		evaltree.NewAssignmentEvaluator("d", evaltree.NewNumberEvaluator(0.4)),
+		evaltree.NewAssignmentEvaluator("a", evaltree.NewLiteralEvaluator(1)),
+		evaltree.NewAssignmentEvaluator("b", evaltree.NewLiteralEvaluator(2)),
+		evaltree.NewAssignmentEvaluator("c", evaltree.NewLiteralEvaluator("Hello")),
+		evaltree.NewAssignmentEvaluator("d", evaltree.NewLiteralEvaluator(0.4)),
 		evaltree.NewAssignmentEvaluator("m",
-			evaltree.NewMathExpressionEvaluator(evaltree.NewNumberEvaluator(2),
+			evaltree.NewMathExpressionEvaluator(evaltree.NewLiteralEvaluator(2),
 				evaltree.NewMathExpressionEvaluator(
-					evaltree.NewNumberEvaluator(3),
-					evaltree.NewNumberEvaluator(4),
+					evaltree.NewLiteralEvaluator(3),
+					evaltree.NewLiteralEvaluator(4),
 					"^",
 				),
 				"+",
 			)),
-		evaltree.NewAssignmentEvaluator("e", evaltree.NewVariableEvaluator("test")),
+		evaltree.NewAssignmentEvaluator("e", evaltree.NewIdentifierEvaluator("test")),
 	}
 	for i := 0; i < len(dmls); i++ {
 		p, err := parseProgram(dmls[i])
@@ -291,16 +291,16 @@ func TestComputationDefinitionStatements(t *testing.T) {
 		},
 		evaltree.NewBlockEvaluator(
 			[]evaltree.Evaluator{
-				evaltree.NewAssignmentEvaluator("c", evaltree.NewStringEvaluator("Hello")),
-				evaltree.NewAssignmentEvaluator("d", evaltree.NewNumberEvaluator(0.4)),
+				evaltree.NewAssignmentEvaluator("c", evaltree.NewLiteralEvaluator("Hello")),
+				evaltree.NewAssignmentEvaluator("d", evaltree.NewLiteralEvaluator(0.4)),
 				evaltree.NewAssignmentEvaluator("m",
 					evaltree.NewMathExpressionEvaluator(
 						evaltree.NewMathExpressionEvaluator(
-							evaltree.NewVariableEvaluator("a"),
-							evaltree.NewVariableEvaluator("b"),
+							evaltree.NewIdentifierEvaluator("a"),
+							evaltree.NewIdentifierEvaluator("b"),
 							"*",
-						), evaltree.NewVariableEvaluator("d"), "-")),
-				evaltree.NewVariableEvaluator("m"),
+						), evaltree.NewIdentifierEvaluator("d"), "-")),
+				evaltree.NewIdentifierEvaluator("m"),
 			},
 		),
 	)

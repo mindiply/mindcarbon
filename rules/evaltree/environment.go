@@ -6,18 +6,18 @@ package evaltree
 // The lookup will be done in the current environment, and if the key is not found, it will look up in the parent environment.
 type Environment interface {
 	// Get retrieves the Value associated with the given key.
-	Get(key string) (Evaluator, bool)
+	Get(key string) (Object, bool)
 
 	// Set associates the given key with the Value.
-	Set(key string, value Evaluator)
+	Set(key string, object Object)
 }
 
 type EnvironmentObject struct {
-	namedObjects map[string]Evaluator
+	namedObjects map[string]Object
 	parentEnv    Environment
 }
 
-func (e *EnvironmentObject) Get(key string) (Evaluator, bool) {
+func (e *EnvironmentObject) Get(key string) (Object, bool) {
 	if obj, ok := e.namedObjects[key]; ok {
 		return obj, true
 	}
@@ -27,13 +27,13 @@ func (e *EnvironmentObject) Get(key string) (Evaluator, bool) {
 	return nil, false
 }
 
-func (e *EnvironmentObject) Set(key string, value Evaluator) {
-	e.namedObjects[key] = value
+func (e *EnvironmentObject) Set(key string, object Object) {
+	e.namedObjects[key] = object
 }
 
 func NewEnvironment(parent Environment) Environment {
 	return &EnvironmentObject{
-		namedObjects: make(map[string]Evaluator),
+		namedObjects: make(map[string]Object),
 		parentEnv:    parent,
 	}
 }

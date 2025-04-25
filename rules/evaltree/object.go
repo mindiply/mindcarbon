@@ -40,6 +40,10 @@ func (n NumberObject) Inspect() string {
 	return fmt.Sprintf("Number {%f}", n.value)
 }
 
+func (n NumberObject) Evaluate(env Environment) Object {
+	return n
+}
+
 func NewNumberObject(value float64) *NumberObject {
 	return &NumberObject{value: value}
 }
@@ -58,6 +62,10 @@ func (s StringObject) Value() interface{} {
 
 func (s StringObject) Inspect() string {
 	return fmt.Sprintf("String {%s}", s.value)
+}
+
+func (s StringObject) Evaluate(env Environment) Object {
+	return s
 }
 
 func NewStringObject(value string) *StringObject {
@@ -81,6 +89,10 @@ func (n NullObject) Inspect() string {
 	return "null"
 }
 
+func (n NullObject) Evaluate(env Environment) Object {
+	return NULL
+}
+
 func IsNull(obj Object) bool {
 	return obj == NULL
 }
@@ -99,6 +111,10 @@ func (e ErrorObject) Value() interface{} {
 
 func (e ErrorObject) Inspect() string {
 	return fmt.Sprintf("Error: {%s}", e.Message)
+}
+
+func (e ErrorObject) Evaluate(env Environment) Object {
+	return e
 }
 
 func NewError(format string, a ...interface{}) *ErrorObject {
@@ -123,6 +139,10 @@ func (f FunctionDefinitionObject) Inspect() string {
 	return fmt.Sprintf("FunctionDefinition {%s}", f.Name)
 }
 
+func (f FunctionDefinitionObject) Evaluate(env Environment) Object {
+	return f
+}
+
 func NewFunctionDefinitionObject(name string, parameters map[string]ParameterDefinition, body Evaluator) *FunctionDefinitionObject {
 	return &FunctionDefinitionObject{Name: name, Parameters: parameters, Body: body}
 }
@@ -142,6 +162,10 @@ func (n NativeFunctionDefinitionObject) Value() interface{} {
 
 func (n NativeFunctionDefinitionObject) Inspect() string {
 	return fmt.Sprintf("NativeFunctionDefinition {%s}", n.Name)
+}
+
+func (n NativeFunctionDefinitionObject) Evaluate(env Environment) Object {
+	return n
 }
 
 func NewNativeFunctionDefinitionObject(name string, fn NativeFunction) *NativeFunctionDefinitionObject {
